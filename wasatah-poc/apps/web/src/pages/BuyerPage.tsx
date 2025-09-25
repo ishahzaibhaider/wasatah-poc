@@ -39,7 +39,11 @@ const BuyerPage = () => {
     bathrooms: 6,
     yearBuilt: 2018,
     features: ['Swimming Pool', 'Private Garden', 'Smart Home System', '2-Car Garage'],
-    images: ['/images/villa1.jpg', '/images/villa2.jpg', '/images/villa3.jpg'],
+    images: [
+      '/images/properties/luxury-villa-riyadh.jpg',
+      '/images/properties/modern-apartment.jpg',
+      '/images/properties/townhouse-dammam.jpg'
+    ],
     deedVerified: true,
     zkpVerified: true,
     riskScore: 15
@@ -149,9 +153,13 @@ const BuyerPage = () => {
 
               {/* Property Images */}
               <div className="grid grid-cols-3 gap-4 mb-6">
-                {property.images.map((_, index) => (
-                  <div key={index} className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center">
-                    <span className="text-gray-400">🏠 Image {index + 1}</span>
+                {property.images.map((image, index) => (
+                  <div key={index} className="aspect-video rounded-lg overflow-hidden">
+                    <img 
+                      src={image} 
+                      alt={`Property image ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 ))}
               </div>

@@ -38,9 +38,9 @@ const BrokerPage = () => {
   ];
 
   const mockProperties = [
-    { id: 'prop_001', title: 'Luxury Villa - Riyadh', price: 2800000 },
-    { id: 'prop_002', title: 'Modern Apartment - Jeddah', price: 1800000 },
-    { id: 'prop_003', title: 'Townhouse - Dammam', price: 1200000 }
+    { id: 'prop_001', title: 'Luxury Villa - Riyadh', price: 2800000, image: '/images/properties/luxury-villa-riyadh.jpg' },
+    { id: 'prop_002', title: 'Modern Apartment - Jeddah', price: 1800000, image: '/images/properties/modern-apartment.jpg' },
+    { id: 'prop_003', title: 'Townhouse - Dammam', price: 1200000, image: '/images/properties/townhouse-dammam.jpg' }
   ];
 
   const handleLinkBuyerSeller = async () => {
@@ -211,11 +211,22 @@ const BrokerPage = () => {
             
             <div className="space-y-4">
               <div className="interactive-card p-4 group">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-base font-bold text-secondary-900">Luxury Villa - Riyadh</h3>
-                  <div className="flex items-center space-x-2">
-                    <span className="badge badge-success">Active</span>
-                    <span className="badge badge-primary">🔐 ZKP Verified</span>
+                <div className="flex items-start space-x-4 mb-3">
+                  <div className="h-16 w-16 rounded-lg overflow-hidden flex-shrink-0">
+                    <img 
+                      src="/images/properties/luxury-villa-riyadh.jpg" 
+                      alt="Luxury Villa - Riyadh" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-base font-bold text-secondary-900">Luxury Villa - Riyadh</h3>
+                      <div className="flex items-center space-x-2">
+                        <span className="badge badge-success">Active</span>
+                        <span className="badge badge-primary">🔐 ZKP Verified</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="space-y-1 mb-3">
@@ -250,13 +261,24 @@ const BrokerPage = () => {
                 </div>
             </div>
             
-            {/* Success state example */}
-              <div className="interactive-card p-6 bg-gradient-to-r from-success-50/50 to-success-100/50 border-success-200/50">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-success-800">Modern Apartment - Jeddah</h3>
-                  <div className="flex items-center space-x-3">
-                    <span className="badge badge-success">Linked Successfully</span>
-                    <span className="badge badge-primary">🔐 ZKP Verified</span>
+              {/* Success state example */}
+              <div className="interactive-card p-4 bg-gradient-to-r from-success-50/50 to-success-100/50 border-success-200/50">
+                <div className="flex items-start space-x-4 mb-3">
+                  <div className="h-16 w-16 rounded-lg overflow-hidden flex-shrink-0">
+                    <img 
+                      src="/images/properties/modern-apartment.jpg" 
+                      alt="Modern Apartment - Jeddah" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-base font-bold text-success-800">Modern Apartment - Jeddah</h3>
+                      <div className="flex items-center space-x-2">
+                        <span className="badge badge-success">Linked Successfully</span>
+                        <span className="badge badge-primary">🔐 ZKP Verified</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="space-y-2 mb-4">
@@ -298,28 +320,39 @@ const BrokerPage = () => {
             </div>
             
             <div className="space-y-6">
-              <div className="interactive-card p-6 group">
-                <h3 className="text-lg font-bold text-secondary-900 mb-4">Modern Apartment - Jeddah</h3>
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-center text-secondary-600">
-                    <span className="w-2 h-2 bg-accent-500 rounded-full mr-3"></span>
-                    <span className="font-medium">Price:</span>
-                    <span className="ml-2 font-bold text-secondary-900">SAR 1,800,000</span>
+              <div className="interactive-card p-4 group">
+                <div className="flex items-start space-x-4 mb-4">
+                  <div className="h-16 w-16 rounded-lg overflow-hidden flex-shrink-0">
+                    <img 
+                      src="/images/properties/modern-apartment.jpg" 
+                      alt="Modern Apartment - Jeddah" 
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <div className="flex items-center text-secondary-600">
-                    <span className="w-2 h-2 bg-success-500 rounded-full mr-3"></span>
-                    <span className="font-medium">Status:</span>
-                    <span className="ml-2">Available</span>
-                  </div>
-                  <div className="flex items-center text-secondary-600">
-                    <span className="w-2 h-2 bg-primary-500 rounded-full mr-3"></span>
-                    <span className="font-medium">Seller:</span>
-                    <span className="ml-2">Fatima Al-Zahra</span>
+                  <div className="flex-1">
+                    <h3 className="text-base font-bold text-secondary-900 mb-3">Modern Apartment - Jeddah</h3>
+                    <div className="space-y-1 mb-4">
+                      <div className="flex items-center text-secondary-600 text-sm">
+                        <span className="w-1.5 h-1.5 bg-accent-500 rounded-full mr-2"></span>
+                        <span className="font-medium">Price:</span>
+                        <span className="ml-2 font-bold text-secondary-900">SAR 1,800,000</span>
+                      </div>
+                      <div className="flex items-center text-secondary-600 text-sm">
+                        <span className="w-1.5 h-1.5 bg-success-500 rounded-full mr-2"></span>
+                        <span className="font-medium">Status:</span>
+                        <span className="ml-2">Available</span>
+                      </div>
+                      <div className="flex items-center text-secondary-600 text-sm">
+                        <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mr-2"></span>
+                        <span className="font-medium">Seller:</span>
+                        <span className="ml-2">Fatima Al-Zahra</span>
+                      </div>
+                    </div>
+                    <button className="btn btn-secondary btn-sm">
+                      Connect Buyers
+                    </button>
                   </div>
                 </div>
-                <button className="btn btn-secondary btn-sm">
-                  Connect Buyers
-                </button>
               </div>
               
               {/* Empty state for more properties */}

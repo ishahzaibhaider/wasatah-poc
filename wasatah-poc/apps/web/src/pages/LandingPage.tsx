@@ -18,8 +18,12 @@ const LandingPage = () => {
           {/* Hero Section */}
           <div className="text-center mb-16 animate-fade-in">
             {/* Logo with Glow Effect */}
-            <div className="mx-auto h-20 w-20 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mb-6 shadow-glow animate-bounce-gentle">
-              <span className="text-3xl">🏛️</span>
+            <div className="mx-auto h-20 w-20 rounded-2xl mb-6 shadow-glow animate-bounce-gentle overflow-hidden">
+              <img 
+                src="/images/wasatah-logo.png" 
+                alt="Wasatah Logo" 
+                className="w-full h-full object-cover"
+              />
             </div>
             
             <h1 className="text-4xl lg:text-5xl font-black mb-4 animate-slide-up">
@@ -148,8 +152,12 @@ const LandingPage = () => {
           {/* Demo Info */}
           <Card className="max-w-4xl mx-auto">
             <CardBody className="p-8 text-center">
-              <div className="h-16 w-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-glow">
-                <span className="text-2xl">🔍</span>
+              <div className="h-16 w-16 rounded-xl mx-auto mb-6 shadow-glow overflow-hidden">
+                <img 
+                  src="/images/wasatah-logo.png" 
+                  alt="Wasatah Logo" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h3 className="text-2xl font-bold text-secondary-900 mb-4">About This Demo</h3>
               <p className="text-base text-secondary-600 mb-4 leading-relaxed max-w-2xl mx-auto">

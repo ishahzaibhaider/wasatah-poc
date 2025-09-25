@@ -243,9 +243,13 @@ const SellerPage = () => {
 
               {/* Property Images */}
               <div className="grid grid-cols-3 gap-4 mb-6">
-                {property.images.map((_: string, index: number) => (
-                  <div key={index} className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center">
-                    <span className="text-gray-400">🏠 Image {index + 1}</span>
+                {property.images.map((image: string, index: number) => (
+                  <div key={index} className="aspect-video rounded-lg overflow-hidden">
+                    <img 
+                      src={image} 
+                      alt={`Property image ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 ))}
               </div>

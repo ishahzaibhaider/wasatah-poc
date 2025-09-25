@@ -18,8 +18,12 @@ const TopBar = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="text-2xl font-black text-transparent bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text hover:from-primary-700 hover:to-primary-900 transition-all duration-300 flex items-center group">
-              <div className="h-8 w-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center mr-2 shadow-glow group-hover:shadow-glow-lg transition-all duration-300">
-                <span className="text-lg">🏛️</span>
+              <div className="h-8 w-8 rounded-lg mr-2 shadow-glow group-hover:shadow-glow-lg transition-all duration-300 overflow-hidden">
+                <img 
+                  src="/images/wasatah-logo.png" 
+                  alt="Wasatah Logo" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               Wasatah
             </Link>
