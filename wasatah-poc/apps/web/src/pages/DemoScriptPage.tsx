@@ -1,10 +1,8 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardBody } from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 
 const DemoScriptPage = () => {
-  const [currentStep, setCurrentStep] = useState(0);
 
   const demoSteps = [
     {
@@ -215,7 +213,7 @@ const DemoScriptPage = () => {
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Badge variant="info">{step.duration}</Badge>
+                  <Badge variant="primary">{step.duration}</Badge>
                   <Link
                     to={step.route}
                     className="px-3 py-1 bg-primary-600 text-white text-sm rounded-md hover:bg-primary-700 transition-colors"
