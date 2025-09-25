@@ -44,33 +44,33 @@ const RolePage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="text-center mb-16">
-        <h1 className="text-5xl font-black mb-6">Choose Your Role</h1>
-        <p className="text-xl text-secondary-600 max-w-3xl mx-auto leading-relaxed">
+    <div className="max-w-6xl mx-auto">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-black mb-4">Choose Your Role</h1>
+        <p className="text-lg text-secondary-600 max-w-2xl mx-auto leading-relaxed">
           Select how you want to experience the future of real estate transactions
         </p>
       </div>
 
       {/* User Info */}
       {user && (
-        <div className="mb-16">
+        <div className="mb-12">
           <Card className="bg-gradient-to-r from-primary-50/80 to-accent-50/80 border-primary-200/50 backdrop-blur-sm">
-            <CardBody className="p-8">
+            <CardBody className="p-6">
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center shadow-glow">
-                    <span className="text-xl text-white font-bold">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-glow">
+                    <span className="text-lg text-white font-bold">
                       {user.name.split(' ').map(n => n[0]).join('')}
                     </span>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-secondary-900">{user.name}</h3>
-                    <p className="text-secondary-600 font-medium">{user.email}</p>
+                    <h3 className="text-xl font-bold text-secondary-900">{user.name}</h3>
+                    <p className="text-secondary-600 font-medium text-sm">{user.email}</p>
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-3">
                   {user.digitalId && (
                     <>
                       <span className="badge badge-success">
@@ -88,34 +88,34 @@ const RolePage = () => {
         </div>
       )}
 
-      <div className="grid lg:grid-cols-3 gap-10">
+      <div className="grid lg:grid-cols-3 gap-6">
         {roles.map((role) => (
           <Card
             key={role.id}
             onClick={() => handleRoleSelect(role.id, role.path)}
             className="interactive-card text-center group cursor-pointer animate-fade-in"
           >
-            <CardBody className="p-12">
+            <CardBody className="p-8">
               {/* Icon with gradient background */}
-              <div className={`mx-auto h-24 w-24 bg-gradient-to-br ${role.color} rounded-3xl flex items-center justify-center mb-8 shadow-glow group-hover:shadow-glow-lg transition-all duration-300 group-hover:scale-110`}>
-                <span className="text-4xl">{role.icon}</span>
+              <div className={`mx-auto h-16 w-16 bg-gradient-to-br ${role.color} rounded-xl flex items-center justify-center mb-6 shadow-glow group-hover:shadow-glow-lg transition-all duration-300 group-hover:scale-110`}>
+                <span className="text-2xl">{role.icon}</span>
               </div>
               
-              <h3 className="text-3xl font-bold mb-4 text-secondary-900">{role.title}</h3>
-              <p className="text-secondary-600 mb-8 leading-relaxed text-lg">{role.description}</p>
+              <h3 className="text-2xl font-bold mb-3 text-secondary-900">{role.title}</h3>
+              <p className="text-secondary-600 mb-6 leading-relaxed text-sm">{role.description}</p>
               
               {/* Features */}
-              <div className="space-y-3 mb-8">
+              <div className="space-y-2 mb-6">
                 {role.features.map((feature, featureIndex) => (
-                  <div key={featureIndex} className="flex items-center justify-center text-sm text-secondary-500">
-                    <span className="w-2 h-2 bg-primary-500 rounded-full mr-3"></span>
+                  <div key={featureIndex} className="flex items-center justify-center text-xs text-secondary-500">
+                    <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mr-2"></span>
                     {feature}
                   </div>
                 ))}
               </div>
               
               {/* Action Button */}
-              <button className={`w-full py-4 px-8 bg-gradient-to-r ${role.color} text-white font-bold rounded-xl shadow-lg hover:shadow-glow-lg transition-all duration-300 transform hover:scale-105 text-lg`}>
+              <button className={`w-full py-3 px-6 bg-gradient-to-r ${role.color} text-white font-bold rounded-lg shadow-lg hover:shadow-glow-lg transition-all duration-300 transform hover:scale-105`}>
                 Enter as {role.title}
               </button>
             </CardBody>

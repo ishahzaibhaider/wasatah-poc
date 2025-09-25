@@ -168,19 +168,19 @@ const BrokerPage = () => {
   return (
     <div className="max-w-7xl mx-auto">
       {/* Header Section */}
-      <div className="mb-12">
-        <div className="text-center mb-8">
-          <h1 className="text-5xl font-black mb-4">Broker Dashboard</h1>
-          <p className="text-xl text-secondary-600 max-w-3xl mx-auto leading-relaxed">
+      <div className="mb-8">
+        <div className="text-center mb-6">
+          <h1 className="text-3xl font-black mb-3">Broker Dashboard</h1>
+          <p className="text-lg text-secondary-600 max-w-2xl mx-auto leading-relaxed">
             Connect buyers and sellers in the Wasatah network with AI-powered security
           </p>
         </div>
         
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
           {!isReadonlyMode() && (
             <button
               onClick={handleTestImpersonation}
-              className="btn btn-outline btn-lg px-8 py-4 text-lg font-bold"
+              className="btn btn-outline px-6 py-3 font-bold"
             >
               <span className="mr-2">🛡️</span>
               Test Security
@@ -189,7 +189,7 @@ const BrokerPage = () => {
           {!isReadonlyMode() && (
             <button
               onClick={() => setShowLinkModal(true)}
-              className="btn btn-primary btn-lg px-8 py-4 text-lg font-bold shadow-glow-lg"
+              className="btn btn-primary px-6 py-3 font-bold shadow-glow"
             >
               <span className="mr-2">🔗</span>
               Link Buyer & Seller
@@ -198,56 +198,56 @@ const BrokerPage = () => {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-10">
+      <div className="grid lg:grid-cols-2 gap-6">
         {/* Active Connections */}
         <Card className="h-fit">
-          <CardBody className="p-8">
-            <div className="flex items-center mb-6">
-              <div className="h-12 w-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mr-4 shadow-glow">
-                <span className="text-2xl">🔗</span>
+          <CardBody className="p-6">
+            <div className="flex items-center mb-4">
+              <div className="h-10 w-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mr-3 shadow-glow">
+                <span className="text-lg">🔗</span>
               </div>
-              <h2 className="text-2xl font-bold text-secondary-900">Active Connections</h2>
+              <h2 className="text-xl font-bold text-secondary-900">Active Connections</h2>
             </div>
             
-            <div className="space-y-6">
-              <div className="interactive-card p-6 group">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-secondary-900">Luxury Villa - Riyadh</h3>
-                  <div className="flex items-center space-x-3">
+            <div className="space-y-4">
+              <div className="interactive-card p-4 group">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-base font-bold text-secondary-900">Luxury Villa - Riyadh</h3>
+                  <div className="flex items-center space-x-2">
                     <span className="badge badge-success">Active</span>
                     <span className="badge badge-primary">🔐 ZKP Verified</span>
                   </div>
                 </div>
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-center text-secondary-600">
-                    <span className="w-2 h-2 bg-primary-500 rounded-full mr-3"></span>
+                <div className="space-y-1 mb-3">
+                  <div className="flex items-center text-secondary-600 text-sm">
+                    <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mr-2"></span>
                     <span className="font-medium">Seller:</span>
                     <span className="ml-2">Ahmed Al-Rashid</span>
                   </div>
-                  <div className="flex items-center text-secondary-600">
-                    <span className="w-2 h-2 bg-success-500 rounded-full mr-3"></span>
+                  <div className="flex items-center text-secondary-600 text-sm">
+                    <span className="w-1.5 h-1.5 bg-success-500 rounded-full mr-2"></span>
                     <span className="font-medium">Buyer:</span>
                     <span className="ml-2">Sarah Al-Mansouri</span>
                   </div>
-                  <div className="flex items-center text-secondary-600">
-                    <span className="w-2 h-2 bg-accent-500 rounded-full mr-3"></span>
+                  <div className="flex items-center text-secondary-600 text-sm">
+                    <span className="w-1.5 h-1.5 bg-accent-500 rounded-full mr-2"></span>
                     <span className="font-medium">Offer:</span>
                     <span className="ml-2 font-bold text-secondary-900">SAR 2,500,000</span>
-              </div>
-              </div>
-                <div className="flex gap-3">
-                  <button className="btn btn-outline btn-sm">
-                  Facilitate Meeting
-                </button>
-                {!isReadonlyMode() && (
-                  <button 
-                    onClick={() => handleCompleteTransaction('conn_001', 'buyer_001', 'seller_001', 'prop_001', 2500000)}
-                      className="btn btn-success btn-sm"
-                  >
-                    Complete Transaction
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <button className="btn btn-outline btn-sm text-xs px-3 py-1">
+                    Facilitate Meeting
                   </button>
-                )}
-              </div>
+                  {!isReadonlyMode() && (
+                    <button 
+                      onClick={() => handleCompleteTransaction('conn_001', 'buyer_001', 'seller_001', 'prop_001', 2500000)}
+                      className="btn btn-success btn-sm text-xs px-3 py-1"
+                    >
+                      Complete Transaction
+                    </button>
+                  )}
+                </div>
             </div>
             
             {/* Success state example */}
@@ -336,44 +336,44 @@ const BrokerPage = () => {
       </div>
 
       {/* Broker Stats */}
-      <Card className="mt-12">
-        <CardBody className="p-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-secondary-900 mb-2">Broker Statistics</h2>
-            <p className="text-secondary-600">Your performance metrics and achievements</p>
+      <Card className="mt-8">
+        <CardBody className="p-6">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-secondary-900 mb-2">Broker Statistics</h2>
+            <p className="text-secondary-600 text-sm">Your performance metrics and achievements</p>
           </div>
           
-          <div className="grid lg:grid-cols-4 gap-8">
+          <div className="grid lg:grid-cols-4 gap-6">
             <div className="text-center group">
-              <div className="h-20 w-20 bg-gradient-to-br from-primary-500 to-primary-600 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-glow group-hover:shadow-glow-lg transition-all duration-300">
-                <span className="text-3xl text-white">🔗</span>
+              <div className="h-12 w-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-glow group-hover:shadow-glow-lg transition-all duration-300">
+                <span className="text-lg text-white">🔗</span>
               </div>
-              <div className="text-4xl font-black text-primary-600 mb-2">12</div>
-              <div className="text-sm font-semibold text-secondary-600">Active Connections</div>
-          </div>
+              <div className="text-2xl font-black text-primary-600 mb-1">12</div>
+              <div className="text-xs font-semibold text-secondary-600">Active Connections</div>
+            </div>
             
             <div className="text-center group">
-              <div className="h-20 w-20 bg-gradient-to-br from-success-500 to-success-600 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-glow transition-all duration-300">
-                <span className="text-3xl text-white">✅</span>
-          </div>
-              <div className="text-4xl font-black text-success-600 mb-2">8</div>
-              <div className="text-sm font-semibold text-secondary-600">Completed Deals</div>
-          </div>
-            
-            <div className="text-center group">
-              <div className="h-20 w-20 bg-gradient-to-br from-accent-500 to-accent-600 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-glow transition-all duration-300">
-                <span className="text-3xl text-white">💰</span>
-        </div>
-              <div className="text-4xl font-black text-accent-600 mb-2">SAR 45M</div>
-              <div className="text-sm font-semibold text-secondary-600">Total Volume</div>
-      </div>
-            
-            <div className="text-center group">
-              <div className="h-20 w-20 bg-gradient-to-br from-luxury-500 to-luxury-600 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-glow transition-all duration-300">
-                <span className="text-3xl text-white">⭐</span>
+              <div className="h-12 w-12 bg-gradient-to-br from-success-500 to-success-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-glow transition-all duration-300">
+                <span className="text-lg text-white">✅</span>
               </div>
-              <div className="text-4xl font-black text-luxury-600 mb-2">4.8</div>
-              <div className="text-sm font-semibold text-secondary-600">Rating</div>
+              <div className="text-2xl font-black text-success-600 mb-1">8</div>
+              <div className="text-xs font-semibold text-secondary-600">Completed Deals</div>
+            </div>
+            
+            <div className="text-center group">
+              <div className="h-12 w-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-glow transition-all duration-300">
+                <span className="text-lg text-white">💰</span>
+              </div>
+              <div className="text-2xl font-black text-accent-600 mb-1">SAR 45M</div>
+              <div className="text-xs font-semibold text-secondary-600">Total Volume</div>
+            </div>
+            
+            <div className="text-center group">
+              <div className="h-12 w-12 bg-gradient-to-br from-luxury-500 to-luxury-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-glow transition-all duration-300">
+                <span className="text-lg text-white">⭐</span>
+              </div>
+              <div className="text-2xl font-black text-luxury-600 mb-1">4.8</div>
+              <div className="text-xs font-semibold text-secondary-600">Rating</div>
             </div>
           </div>
         </CardBody>
