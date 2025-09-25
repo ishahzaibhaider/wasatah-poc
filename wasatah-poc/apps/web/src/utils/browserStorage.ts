@@ -211,7 +211,7 @@ export const getStoredProperties = () => {
       bedrooms: 4,
       bathrooms: 3,
       area: 450,
-      images: ['/images/villa1.jpg', '/images/villa2.jpg', '/images/villa3.jpg', '/images/villa4.jpg'],
+      images: ['/images/properties/luxury-villa-riyadh.jpg', '/images/properties/modern-apartment.jpg', '/images/properties/townhouse-dammam.jpg', '/images/properties/penthouse-dubai.jpg'],
       ownerId: 'owner_001',
       ownerName: 'Ahmed Al-Rashid',
       verified: true,
