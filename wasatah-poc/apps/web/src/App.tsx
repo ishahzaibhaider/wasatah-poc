@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
 import TopBar from './components/TopBar';
 import Container from './components/layout/Container';
 import SecurityBanner from './components/SecurityBanner';
@@ -16,9 +15,8 @@ import DemoScriptPage from './pages/DemoScriptPage';
 
 function App() {
   return (
-    <HelmetProvider>
-      <ErrorBoundary>
-        <Router>
+    <ErrorBoundary>
+      <Router>
         <div className="page-container">
           <SecurityBanner />
           <TopBar />
@@ -39,9 +37,8 @@ function App() {
             </Container>
           </main>
         </div>
-        </Router>
-      </ErrorBoundary>
-    </HelmetProvider>
+      </Router>
+    </ErrorBoundary>
   );
 }
 
