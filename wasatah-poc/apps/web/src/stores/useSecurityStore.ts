@@ -19,6 +19,7 @@ interface SecurityState {
   getActiveRiskFlags: () => RiskFlag[];
   getCriticalRiskFlags: () => RiskFlag[];
   clearError: () => void;
+  clearRiskFlags: () => void;
 }
 
 export const useSecurityStore = create<SecurityState>((set, get) => ({
@@ -430,5 +431,13 @@ export const useSecurityStore = create<SecurityState>((set, get) => ({
 
   clearError: () => {
     set({ error: null });
+  },
+
+  clearRiskFlags: () => {
+    set({ 
+      riskFlags: [],
+      activeRiskFlags: [],
+      error: null 
+    });
   },
 }));

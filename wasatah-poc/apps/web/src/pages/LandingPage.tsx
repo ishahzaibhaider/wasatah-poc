@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Card, CardBody } from '../components/ui/Card';
+import SEOHead from '../components/SEOHead';
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-blue-50">
+    <>
+      <SEOHead />
+      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-blue-50">
       <div className="container mx-auto px-4 py-16">
         {/* Hero Section */}
         <div className="text-center mb-16">
@@ -31,6 +34,12 @@ const LandingPage = () => {
               className="btn btn-secondary btn-lg px-8 py-4 text-lg"
             >
               ✨ Create Account
+            </Link>
+            <Link
+              to="/demo-script"
+              className="btn btn-outline btn-lg px-8 py-4 text-lg"
+            >
+              📋 Demo Script
             </Link>
           </div>
         </div>
@@ -121,7 +130,8 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

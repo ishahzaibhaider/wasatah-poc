@@ -1,21 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useLedgerStore } from '../stores/useLedgerStore';
 import { useAuthStore } from '../stores/useAuthStore';
 import { isReadonlyMode } from '../utils/api';
+import ResetDemoButton from './ResetDemoButton';
 
 const TopBar = () => {
-  const { resetLedger } = useLedgerStore();
   const { user, isAuthenticated, logout } = useAuthStore();
   const location = useLocation();
-
-  const handleReset = async () => {
-    try {
-      await resetLedger();
-      console.log('Demo data reset successfully');
-    } catch (error) {
-      console.error('Failed to reset demo data:', error);
-    }
-  };
 
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -120,6 +110,16 @@ const TopBar = () => {
                 >
                   About ZK
                 </Link>
+                <Link
+                  to="/demo-script"
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isActive('/demo-script') 
+                      ? 'bg-primary-100 text-primary-700' 
+                      : 'text-gray-600 hover:text-primary-600 hover:bg-gray-50'
+                  }`}
+                >
+                  Demo Script
+                </Link>
               </>
             )}
           </nav>
@@ -140,12 +140,7 @@ const TopBar = () => {
               </div>
             )}
             {!isReadonlyMode() && isAuthenticated && (
-              <button
-                onClick={handleReset}
-                className="btn btn-secondary btn-sm"
-              >
-                🔄 Reset Demo
-              </button>
+              <ResetDemoButton />
             )}
             {isReadonlyMode() && (
               <div className="px-3 py-1 bg-orange-100 text-orange-800 text-xs font-medium rounded-full">

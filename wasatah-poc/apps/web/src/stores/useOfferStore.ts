@@ -19,6 +19,7 @@ interface OfferState {
   getOffersBySeller: (sellerId: string) => Offer[];
   getPendingOffers: () => Offer[];
   clearError: () => void;
+  clearOffers: () => void;
 }
 
 export const useOfferStore = create<OfferState>((set, get) => ({
@@ -251,5 +252,9 @@ export const useOfferStore = create<OfferState>((set, get) => ({
 
   clearError: () => {
     set({ error: null });
+  },
+
+  clearOffers: () => {
+    set({ offers: [] });
   },
 }));
