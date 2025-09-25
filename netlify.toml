@@ -1,7 +1,7 @@
 [build]
   base = "wasatah-poc/apps/web"
   command = "npm install && npm run build"
-  publish = "wasatah-poc/apps/web/dist"
+  publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20"
@@ -49,11 +49,11 @@
 # Redirect images to the correct path
 [[redirects]]
   from = "/images/*"
-  to = "/wasatah-poc/apps/web/dist/images/:splat"
+  to = "/images/:splat"
   status = 200
 
 # Redirect all other requests to the SPA
 [[redirects]]
   from = "/*"
-  to = "/wasatah-poc/apps/web/dist/index.html"
+  to = "/index.html"
   status = 200

@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/wasatah-poc/apps/web/dist/',
+  base: '/',
   define: {
     // Make environment variables available at build time
     'import.meta.env.VITE_READONLY': JSON.stringify(process.env.VITE_READONLY || 'false'),
