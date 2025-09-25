@@ -1,10 +1,9 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { User, LoginForm, DigitalID, Role } from '../types/models';
+import type { User, LoginForm, DigitalID } from '../types/models';
 import { 
   getStoredUserByEmail, 
   saveStoredUser, 
-  getCurrentUser, 
   setCurrentUser,
   addStoredLedgerEvent,
   type StoredUser 

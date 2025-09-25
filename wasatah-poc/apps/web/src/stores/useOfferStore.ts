@@ -3,8 +3,6 @@ import type { Offer, OfferForm, OfferStatus } from '../types/models';
 import { 
   getStoredOffers, 
   saveStoredOffer, 
-  getStoredOffersByBuyer,
-  getStoredOffersByProperty,
   type StoredOffer 
 } from '../utils/browserStorage';
 

@@ -53,7 +53,7 @@ export const useLedgerStore = create<LedgerState>((set, get) => ({
         timestamp: storedEvent.timestamp,
         details: storedEvent.data,
         signature: storedEvent.signature,
-        blockHash: storedEvent.blockHash,
+        hash: storedEvent.blockHash, // Use 'hash' instead of 'blockHash'
       }));
       
       set({
@@ -93,7 +93,7 @@ export const useLedgerStore = create<LedgerState>((set, get) => ({
         timestamp: storedEvent.timestamp,
         details: storedEvent.data,
         signature: storedEvent.signature,
-        blockHash: storedEvent.blockHash,
+        hash: storedEvent.blockHash, // Use 'hash' instead of 'blockHash'
       };
       
       // Add the new event to the local state

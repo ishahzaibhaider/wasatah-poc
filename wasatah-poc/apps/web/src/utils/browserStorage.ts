@@ -17,7 +17,7 @@ export interface StoredOffer {
   buyerId: string;
   buyerName: string;
   amount: number;
-  status: 'pending' | 'accepted' | 'rejected' | 'locked';
+  status: 'pending' | 'accepted' | 'rejected' | 'locked' | 'withdrawn' | 'expired';
   createdAt: string;
   expiresAt?: string;
 }
