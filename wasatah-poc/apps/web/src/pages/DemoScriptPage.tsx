@@ -193,7 +193,7 @@ const DemoScriptPage = () => {
 
       {/* Demo Steps */}
       <div className="space-y-6">
-        {demoSteps.map((step, index) => (
+        {demoSteps.map((step) => (
           <Card key={step.id} className="transition-all duration-300 hover:shadow-md">
             <CardBody className="p-6">
               <div className="flex items-start justify-between mb-4">
