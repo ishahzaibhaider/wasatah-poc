@@ -3,6 +3,7 @@ import { Card, CardBody } from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import { useOfferStore } from '../stores/useOfferStore';
 import { useLedgerStore } from '../stores/useLedgerStore';
+import { useAuthStore } from '../stores/useAuthStore';
 import Notification from '../components/Notification';
 
 const BuyerPage = () => {
@@ -27,6 +28,7 @@ const BuyerPage = () => {
   } = useOfferStore();
 
   const { addEvent } = useLedgerStore();
+  const { user } = useAuthStore();
 
   const property = {
     id: 'prop_001',
@@ -70,7 +72,7 @@ const BuyerPage = () => {
       await updateOfferStatus(newOffer.id, 'locked');
       
       // Add ledger event for offer_made
-      await addEvent('offer_made', 'current_user', 'Current User', {
+      await addEvent('offer_made', user?.id || 'current_user', user?.name || 'Current User', {
         offerId: newOffer.id,
         propertyId: property.id,
         amount: parseInt(offerAmount),

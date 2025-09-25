@@ -3,6 +3,7 @@ import type { Offer, OfferForm, OfferStatus } from '../types/models';
 import { 
   getStoredOffers, 
   saveStoredOffer, 
+  getCurrentUser,
   type StoredOffer 
 } from '../utils/browserStorage';
 
@@ -105,12 +106,15 @@ export const useOfferStore = create<OfferState>((set, get) => ({
     try {
       console.log('Creating offer in browser storage:', offerData);
       
+      // Get current user
+      const currentUser = getCurrentUser();
+      
       // Create stored offer
       const storedOffer: StoredOffer = {
         id: `offer_${Date.now()}`,
         propertyId: offerData.propertyId,
-        buyerId: 'current_user', // TODO: Get from auth store
-        buyerName: 'Current User', // TODO: Get from auth store
+        buyerId: currentUser?.id || 'current_user',
+        buyerName: currentUser?.name || 'Current User',
         amount: offerData.amount,
         status: 'pending',
         createdAt: new Date().toISOString(),
