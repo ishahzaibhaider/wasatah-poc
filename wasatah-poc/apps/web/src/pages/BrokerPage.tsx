@@ -4,7 +4,7 @@ import { useSecurityStore } from '../stores/useSecurityStore';
 import { createPseudoSignature } from '../utils/crypto';
 import { isReadonlyMode } from '../utils/api';
 import Notification from '../components/Notification';
-import Badge from '../components/ui/Badge';
+import { Card, CardBody } from '../components/ui/Card';
 
 const BrokerPage = () => {
   const [showLinkModal, setShowLinkModal] = useState(false);
@@ -166,60 +166,83 @@ const BrokerPage = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <div className="mb-8 flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Broker Dashboard</h1>
-          <p className="text-gray-600">Connect buyers and sellers in the Wasatah network</p>
+    <div className="max-w-7xl mx-auto">
+      {/* Header Section */}
+      <div className="mb-12">
+        <div className="text-center mb-8">
+          <h1 className="text-5xl font-black mb-4">Broker Dashboard</h1>
+          <p className="text-xl text-secondary-600 max-w-3xl mx-auto leading-relaxed">
+            Connect buyers and sellers in the Wasatah network with AI-powered security
+          </p>
         </div>
-        <div className="flex space-x-3">
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
           {!isReadonlyMode() && (
             <button
               onClick={handleTestImpersonation}
-              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center space-x-2"
+              className="btn btn-outline btn-lg px-8 py-4 text-lg font-bold"
             >
-              <span>🛡️</span>
-              <span>Test Security</span>
+              <span className="mr-2">🛡️</span>
+              Test Security
             </button>
           )}
           {!isReadonlyMode() && (
             <button
               onClick={() => setShowLinkModal(true)}
-              className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center space-x-2"
+              className="btn btn-primary btn-lg px-8 py-4 text-lg font-bold shadow-glow-lg"
             >
-              <span>🔗</span>
-              <span>Link Buyer & Seller</span>
+              <span className="mr-2">🔗</span>
+              Link Buyer & Seller
             </button>
           )}
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid lg:grid-cols-2 gap-10">
         {/* Active Connections */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4">Active Connections</h2>
-          <div className="space-y-4">
-            <div className="border border-gray-200 rounded-lg p-4">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="font-medium">Luxury Villa - Riyadh</h3>
-                <div className="flex items-center space-x-2">
-                  <Badge variant="success">Active</Badge>
-                  <Badge variant="primary">🔐 ZKP Verified</Badge>
+        <Card className="h-fit">
+          <CardBody className="p-8">
+            <div className="flex items-center mb-6">
+              <div className="h-12 w-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mr-4 shadow-glow">
+                <span className="text-2xl">🔗</span>
+              </div>
+              <h2 className="text-2xl font-bold text-secondary-900">Active Connections</h2>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="interactive-card p-6 group">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-secondary-900">Luxury Villa - Riyadh</h3>
+                  <div className="flex items-center space-x-3">
+                    <span className="badge badge-success">Active</span>
+                    <span className="badge badge-primary">🔐 ZKP Verified</span>
+                  </div>
                 </div>
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center text-secondary-600">
+                    <span className="w-2 h-2 bg-primary-500 rounded-full mr-3"></span>
+                    <span className="font-medium">Seller:</span>
+                    <span className="ml-2">Ahmed Al-Rashid</span>
+                  </div>
+                  <div className="flex items-center text-secondary-600">
+                    <span className="w-2 h-2 bg-success-500 rounded-full mr-3"></span>
+                    <span className="font-medium">Buyer:</span>
+                    <span className="ml-2">Sarah Al-Mansouri</span>
+                  </div>
+                  <div className="flex items-center text-secondary-600">
+                    <span className="w-2 h-2 bg-accent-500 rounded-full mr-3"></span>
+                    <span className="font-medium">Offer:</span>
+                    <span className="ml-2 font-bold text-secondary-900">SAR 2,500,000</span>
               </div>
-              <div className="text-sm text-gray-600 space-y-1">
-                <p>Seller: Ahmed Al-Rashid</p>
-                <p>Buyer: Sarah Al-Mansouri</p>
-                <p>Offer: SAR 2,500,000</p>
               </div>
-              <div className="mt-3 flex space-x-2">
-                <button className="px-3 py-1 bg-primary-600 text-white text-sm rounded-md hover:bg-primary-700">
+                <div className="flex gap-3">
+                  <button className="btn btn-outline btn-sm">
                   Facilitate Meeting
                 </button>
                 {!isReadonlyMode() && (
                   <button 
                     onClick={() => handleCompleteTransaction('conn_001', 'buyer_001', 'seller_001', 'prop_001', 2500000)}
-                    className="px-3 py-1 bg-green-600 text-white text-sm rounded-md hover:bg-green-700"
+                      className="btn btn-success btn-sm"
                   >
                     Complete Transaction
                   </button>
@@ -228,160 +251,231 @@ const BrokerPage = () => {
             </div>
             
             {/* Success state example */}
-            <div className="border border-green-200 bg-green-50 rounded-lg p-4">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="font-medium text-green-800">Modern Apartment - Jeddah</h3>
-                <div className="flex items-center space-x-2">
-                  <Badge variant="success">Linked Successfully</Badge>
-                  <Badge variant="primary">🔐 ZKP Verified</Badge>
+              <div className="interactive-card p-6 bg-gradient-to-r from-success-50/50 to-success-100/50 border-success-200/50">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-success-800">Modern Apartment - Jeddah</h3>
+                  <div className="flex items-center space-x-3">
+                    <span className="badge badge-success">Linked Successfully</span>
+                    <span className="badge badge-primary">🔐 ZKP Verified</span>
+                  </div>
+                </div>
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center text-success-700">
+                    <span className="w-2 h-2 bg-success-500 rounded-full mr-3"></span>
+                    <span className="font-medium">Seller:</span>
+                    <span className="ml-2">Noura Al-Mutairi</span>
+                  </div>
+                  <div className="flex items-center text-success-700">
+                    <span className="w-2 h-2 bg-success-500 rounded-full mr-3"></span>
+                    <span className="font-medium">Buyer:</span>
+                    <span className="ml-2">Fatima Al-Zahra</span>
+                  </div>
+                  <div className="flex items-center text-success-700">
+                    <span className="w-2 h-2 bg-success-500 rounded-full mr-3"></span>
+                    <span className="font-medium">Property:</span>
+                    <span className="ml-2">Modern Apartment - Jeddah</span>
+                  </div>
+                </div>
+                <div className="bg-success-100 rounded-lg p-3 border border-success-200">
+                  <p className="text-sm text-success-800 font-medium flex items-center">
+                    <span className="mr-2">✅</span>
+                    buyer_broker_linked event created
+                  </p>
                 </div>
               </div>
-              <div className="text-sm text-green-700 space-y-1">
-                <p>Seller: Noura Al-Mutairi</p>
-                <p>Buyer: Fatima Al-Zahra</p>
-                <p>Property: Modern Apartment - Jeddah</p>
-                <p className="text-xs text-green-600 mt-2">✅ buyer_broker_linked event created</p>
-              </div>
             </div>
-          </div>
-        </div>
+          </CardBody>
+        </Card>
 
         {/* Available Properties */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4">Available Properties</h2>
-          <div className="space-y-4">
-            <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="font-medium mb-2">Modern Apartment - Jeddah</h3>
-              <div className="text-sm text-gray-600 space-y-1">
-                <p>Price: SAR 1,800,000</p>
-                <p>Status: Available</p>
-                <p>Seller: Fatima Al-Zahra</p>
+        <Card className="h-fit">
+          <CardBody className="p-8">
+            <div className="flex items-center mb-6">
+              <div className="h-12 w-12 bg-gradient-to-br from-success-500 to-success-600 rounded-2xl flex items-center justify-center mr-4 shadow-lg">
+                <span className="text-2xl">🏘️</span>
               </div>
-              <div className="mt-3">
-                <button className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-md hover:bg-gray-200">
+              <h2 className="text-2xl font-bold text-secondary-900">Available Properties</h2>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="interactive-card p-6 group">
+                <h3 className="text-lg font-bold text-secondary-900 mb-4">Modern Apartment - Jeddah</h3>
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center text-secondary-600">
+                    <span className="w-2 h-2 bg-accent-500 rounded-full mr-3"></span>
+                    <span className="font-medium">Price:</span>
+                    <span className="ml-2 font-bold text-secondary-900">SAR 1,800,000</span>
+                  </div>
+                  <div className="flex items-center text-secondary-600">
+                    <span className="w-2 h-2 bg-success-500 rounded-full mr-3"></span>
+                    <span className="font-medium">Status:</span>
+                    <span className="ml-2">Available</span>
+                  </div>
+                  <div className="flex items-center text-secondary-600">
+                    <span className="w-2 h-2 bg-primary-500 rounded-full mr-3"></span>
+                    <span className="font-medium">Seller:</span>
+                    <span className="ml-2">Fatima Al-Zahra</span>
+                  </div>
+                </div>
+                <button className="btn btn-secondary btn-sm">
                   Connect Buyers
                 </button>
               </div>
+              
+              {/* Empty state for more properties */}
+              <div className="interactive-card p-6 border-2 border-dashed border-secondary-200 text-center group hover:border-primary-300 transition-colors">
+                <div className="h-16 w-16 bg-gradient-to-br from-secondary-100 to-secondary-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:from-primary-100 group-hover:to-primary-200 transition-all duration-300">
+                  <span className="text-2xl text-secondary-400 group-hover:text-primary-500">➕</span>
             </div>
+                <h3 className="text-lg font-bold text-secondary-600 mb-2">More Properties Coming Soon</h3>
+                <p className="text-sm text-secondary-500">Additional properties will appear here as they become available</p>
           </div>
         </div>
+          </CardBody>
+        </Card>
       </div>
 
       {/* Broker Stats */}
-      <div className="mt-8 bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-semibold mb-4">Broker Statistics</h2>
-        <div className="grid md:grid-cols-4 gap-4">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-primary-600">12</div>
-            <div className="text-sm text-gray-600">Active Connections</div>
+      <Card className="mt-12">
+        <CardBody className="p-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-secondary-900 mb-2">Broker Statistics</h2>
+            <p className="text-secondary-600">Your performance metrics and achievements</p>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">8</div>
-            <div className="text-sm text-gray-600">Completed Deals</div>
+          
+          <div className="grid lg:grid-cols-4 gap-8">
+            <div className="text-center group">
+              <div className="h-20 w-20 bg-gradient-to-br from-primary-500 to-primary-600 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-glow group-hover:shadow-glow-lg transition-all duration-300">
+                <span className="text-3xl text-white">🔗</span>
+              </div>
+              <div className="text-4xl font-black text-primary-600 mb-2">12</div>
+              <div className="text-sm font-semibold text-secondary-600">Active Connections</div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">SAR 45M</div>
-            <div className="text-sm text-gray-600">Total Volume</div>
+            
+            <div className="text-center group">
+              <div className="h-20 w-20 bg-gradient-to-br from-success-500 to-success-600 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-glow transition-all duration-300">
+                <span className="text-3xl text-white">✅</span>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-purple-600">4.8</div>
-            <div className="text-sm text-gray-600">Rating</div>
+              <div className="text-4xl font-black text-success-600 mb-2">8</div>
+              <div className="text-sm font-semibold text-secondary-600">Completed Deals</div>
           </div>
+            
+            <div className="text-center group">
+              <div className="h-20 w-20 bg-gradient-to-br from-accent-500 to-accent-600 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-glow transition-all duration-300">
+                <span className="text-3xl text-white">💰</span>
         </div>
+              <div className="text-4xl font-black text-accent-600 mb-2">SAR 45M</div>
+              <div className="text-sm font-semibold text-secondary-600">Total Volume</div>
       </div>
+            
+            <div className="text-center group">
+              <div className="h-20 w-20 bg-gradient-to-br from-luxury-500 to-luxury-600 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-glow transition-all duration-300">
+                <span className="text-3xl text-white">⭐</span>
+              </div>
+              <div className="text-4xl font-black text-luxury-600 mb-2">4.8</div>
+              <div className="text-sm font-semibold text-secondary-600">Rating</div>
+            </div>
+          </div>
+        </CardBody>
+      </Card>
 
       {/* Link Buyer & Seller Modal */}
       {showLinkModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
-            <h3 className="text-xl font-semibold mb-4">Link Buyer & Seller</h3>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <Card className="w-full max-w-lg animate-scale-in">
+            <CardBody className="p-8">
+              <div className="text-center mb-6">
+                <div className="h-16 w-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-glow">
+                  <span className="text-3xl">🔗</span>
+                </div>
+                <h3 className="text-2xl font-bold text-secondary-900 mb-2">Link Buyer & Seller</h3>
+                <p className="text-secondary-600">Connect parties for a property transaction</p>
+              </div>
             
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Select Buyer
-                </label>
-                <select
-                  value={selectedBuyer}
-                  onChange={(e) => setSelectedBuyer(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
-                >
-                  <option value="">Choose a buyer...</option>
-                  {mockBuyers.map((buyer) => (
-                    <option key={buyer.id} value={buyer.id}>
-                      {buyer.name} ({buyer.email})
-                    </option>
-                  ))}
-                </select>
+              <div className="space-y-6">
+                <div>
+                  <label className="form-label">
+                    Select Buyer
+                  </label>
+                  <select
+                    value={selectedBuyer}
+                    onChange={(e) => setSelectedBuyer(e.target.value)}
+                    className="form-input"
+                  >
+                    <option value="">Choose a buyer...</option>
+                    {mockBuyers.map((buyer) => (
+                      <option key={buyer.id} value={buyer.id}>
+                        {buyer.name} ({buyer.email})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="form-label">
+                    Select Seller
+                  </label>
+                  <select
+                    value={selectedSeller}
+                    onChange={(e) => setSelectedSeller(e.target.value)}
+                    className="form-input"
+                  >
+                    <option value="">Choose a seller...</option>
+                    {mockSellers.map((seller) => (
+                      <option key={seller.id} value={seller.id}>
+                        {seller.name} ({seller.email})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="form-label">
+                    Select Property
+                  </label>
+                  <select
+                    value={selectedProperty}
+                    onChange={(e) => setSelectedProperty(e.target.value)}
+                    className="form-input"
+                  >
+                    <option value="">Choose a property...</option>
+                    {mockProperties.map((property) => (
+                      <option key={property.id} value={property.id}>
+                        {property.title} - SAR {property.price.toLocaleString()}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Select Seller
-                </label>
-                <select
-                  value={selectedSeller}
-                  onChange={(e) => setSelectedSeller(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+              <div className="flex gap-4 mt-8">
+                <button
+                  onClick={() => setShowLinkModal(false)}
+                  className="btn btn-ghost flex-1"
+                  disabled={isLinking}
                 >
-                  <option value="">Choose a seller...</option>
-                  {mockSellers.map((seller) => (
-                    <option key={seller.id} value={seller.id}>
-                      {seller.name} ({seller.email})
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Select Property
-                </label>
-                <select
-                  value={selectedProperty}
-                  onChange={(e) => setSelectedProperty(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  Cancel
+                </button>
+                <button
+                  onClick={handleLinkBuyerSeller}
+                  disabled={isLinking || !selectedBuyer || !selectedSeller || !selectedProperty}
+                  className="btn btn-primary flex-1"
                 >
-                  <option value="">Choose a property...</option>
-                  {mockProperties.map((property) => (
-                    <option key={property.id} value={property.id}>
-                      {property.title} - SAR {property.price.toLocaleString()}
-                    </option>
-                  ))}
-                </select>
+                  {isLinking ? (
+                    <>
+                      <div className="loading-spinner h-4 w-4 mr-2"></div>
+                      <span>Linking...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="mr-2">🔗</span>
+                      <span>Link & Create Event</span>
+                    </>
+                  )}
+                </button>
               </div>
-            </div>
-
-            <div className="flex justify-end space-x-3 mt-6">
-              <button
-                onClick={() => setShowLinkModal(false)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800"
-                disabled={isLinking}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleLinkBuyerSeller}
-                disabled={isLinking || !selectedBuyer || !selectedSeller || !selectedProperty}
-                className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
-              >
-                {isLinking ? (
-                  <>
-                    <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <span>Linking...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>🔗</span>
-                    <span>Link & Create Event</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
+            </CardBody>
+          </Card>
         </div>
       )}
 
