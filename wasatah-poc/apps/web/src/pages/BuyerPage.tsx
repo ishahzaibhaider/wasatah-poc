@@ -40,9 +40,9 @@ const BuyerPage = () => {
     yearBuilt: 2018,
     features: ['Swimming Pool', 'Private Garden', 'Smart Home System', '2-Car Garage'],
     images: [
-      '/images/properties/luxury-villa-riyadh.jpg',
-      '/images/properties/modern-apartment.jpg',
-      '/images/properties/townhouse-dammam.jpg'
+      'https://drive.google.com/uc?export=download&id=10c5hOnSpKvIn3nCGaHGz5-vu0xwFHwqj',
+      'https://drive.google.com/uc?export=download&id=1NDGsGavAkeq3E1XYJ7QuiP6K3eqxkqak',
+      'https://drive.google.com/uc?export=download&id=1ckLWqrHsBxXj3LlAJ9xZxEL8zQpyfvf6'
     ],
     deedVerified: true,
     zkpVerified: true,

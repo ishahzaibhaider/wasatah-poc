@@ -13,7 +13,7 @@ const SEOHead = ({
   title = 'Wasatah.app - Blockchain + AI Real Estate Platform',
   description = 'The future of real estate transactions powered by blockchain technology, AI, and Zero-Knowledge Proofs for secure, transparent property deals.',
   keywords = 'real estate, blockchain, AI, zero-knowledge proofs, property transactions, Saudi Arabia, NAFTA, KYC, AML',
-  image = '/images/wasatah-og.jpg',
+  image = 'https://drive.google.com/uc?export=download&id=1ckLWqrHsBxXj3LlAJ9xZxEL8zQpyfvf6',
   url = 'https://wasatah-poc.netlify.app',
   type = 'website'
 }: SEOHeadProps) => {

@@ -20,7 +20,7 @@ const LandingPage = () => {
             {/* Logo with Glow Effect */}
             <div className="mx-auto h-20 w-20 rounded-2xl mb-6 shadow-glow animate-bounce-gentle overflow-hidden">
               <img 
-                src="/images/wasatah-logo.png" 
+                src="https://drive.google.com/uc?export=download&id=1ckLWqrHsBxXj3LlAJ9xZxEL8zQpyfvf6" 
                 alt="Wasatah Logo" 
                 className="w-full h-full object-cover"
               />
@@ -154,7 +154,7 @@ const LandingPage = () => {
             <CardBody className="p-8 text-center">
               <div className="h-16 w-16 rounded-xl mx-auto mb-6 shadow-glow overflow-hidden">
                 <img 
-                  src="/images/wasatah-logo.png" 
+                  src="https://drive.google.com/uc?export=download&id=1ckLWqrHsBxXj3LlAJ9xZxEL8zQpyfvf6" 
                   alt="Wasatah Logo" 
                   className="w-full h-full object-cover"
                 />

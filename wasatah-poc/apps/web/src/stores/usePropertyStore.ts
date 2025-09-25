@@ -86,7 +86,7 @@ export const usePropertyStore = create<PropertyState>((set, get) => ({
               verificationAuthority: 'Saudi Land Registry',
             },
           ],
-          images: ['/images/villa1.jpg', '/images/villa2.jpg'],
+          images: ['https://drive.google.com/uc?export=download&id=10c5hOnSpKvIn3nCGaHGz5-vu0xwFHwqj', 'https://drive.google.com/uc?export=download&id=1NDGsGavAkeq3E1XYJ7QuiP6K3eqxkqak'],
           features: ['Swimming Pool', 'Garden', 'Parking', 'Security'],
           createdAt: '2024-01-01T00:00:00Z',
           updatedAt: '2024-09-22T00:00:00Z',
