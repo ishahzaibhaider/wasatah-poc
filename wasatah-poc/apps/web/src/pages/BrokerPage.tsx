@@ -441,6 +441,7 @@ const BrokerPage = () => {
                       {buyer.name} ({buyer.email}) - {
                         buyer.kycStatus === 'verified' ? '✅ Verified' : 
                         buyer.kycStatus === 'pending_review' ? '⏳ Under Review' : 
+                        buyer.kycStatus === 'not_started' ? '🔒 Not Verified' :
                         '🔒 Not Verified'
                       }
                     </option>
@@ -463,6 +464,7 @@ const BrokerPage = () => {
                       {seller.name} ({seller.email}) - {
                         seller.kycStatus === 'verified' ? '✅ Verified' : 
                         seller.kycStatus === 'pending_review' ? '⏳ Under Review' : 
+                        seller.kycStatus === 'not_started' ? '🔒 Not Verified' :
                         '🔒 Not Verified'
                       }
                     </option>

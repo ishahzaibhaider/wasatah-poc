@@ -153,7 +153,7 @@ const KYCPage = () => {
                       <p className="text-gray-600 text-sm">Role: {user?.role}</p>
                     </div>
                     <div className="text-right">
-                      <Badge variant="outline">Not Verified</Badge>
+                      <Badge variant="secondary">Not Verified</Badge>
                     </div>
                   </div>
                 </div>

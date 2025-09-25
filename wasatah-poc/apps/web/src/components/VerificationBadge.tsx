@@ -19,35 +19,35 @@ const VerificationBadge = ({ kycStatus, size = 'md', showText = true }: Verifica
         };
       case 'pending_review':
         return {
-          variant: 'default' as const,
+          variant: 'warning' as const,
           icon: '⏳',
           text: 'Under Review',
           className: 'bg-yellow-100 text-yellow-800 border-yellow-200'
         };
       case 'in_progress':
         return {
-          variant: 'default' as const,
+          variant: 'primary' as const,
           icon: '🔄',
           text: 'In Progress',
           className: 'bg-blue-100 text-blue-800 border-blue-200'
         };
       case 'rejected':
         return {
-          variant: 'destructive' as const,
+          variant: 'danger' as const,
           icon: '❌',
           text: 'Rejected',
           className: 'bg-red-100 text-red-800 border-red-200'
         };
       case 'expired':
         return {
-          variant: 'destructive' as const,
+          variant: 'danger' as const,
           icon: '⏰',
           text: 'Expired',
           className: 'bg-orange-100 text-orange-800 border-orange-200'
         };
       default:
         return {
-          variant: 'outline' as const,
+          variant: 'secondary' as const,
           icon: '🔒',
           text: 'Not Verified',
           className: 'bg-gray-100 text-gray-600 border-gray-300'

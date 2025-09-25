@@ -252,7 +252,7 @@ const FaceLivenessCheck = ({ onNext, onBack }: FaceLivenessCheckProps) => {
         <div className="bg-red-50 border border-red-200 rounded-lg p-4 max-w-md mx-auto">
           <div className="flex items-center justify-between">
             <span className="text-red-800 font-medium">Confidence Score:</span>
-            <Badge variant="destructive">{livenessCheck.confidence}%</Badge>
+            <Badge variant="danger">{livenessCheck.confidence}%</Badge>
           </div>
         </div>
       )}
