@@ -50,8 +50,8 @@ const BuyerPage = () => {
     loadOffers();
   }, [loadOffers]);
 
-  // Get current user's offers (using current_user as buyerId for now)
-  const myOffers = getOffersByBuyer('current_user');
+  // Get current user's offers
+  const myOffers = getOffersByBuyer(user?.id || 'current_user');
 
   const handleMakeOffer = async (e: React.FormEvent) => {
     e.preventDefault();
