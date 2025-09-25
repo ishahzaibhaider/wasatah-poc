@@ -1,5 +1,12 @@
 import { create } from 'zustand';
 import type { Offer, OfferForm, OfferStatus } from '../types/models';
+import { 
+  getStoredOffers, 
+  saveStoredOffer, 
+  getStoredOffersByBuyer,
+  getStoredOffersByProperty,
+  type StoredOffer 
+} from '../utils/browserStorage';
 
 interface OfferState {
   // State
@@ -34,42 +41,28 @@ export const useOfferStore = create<OfferState>((set, get) => ({
     set({ isLoading: true, error: null });
     
     try {
-      // TODO: Implement API call to load offers
-      console.log('Loading offers...');
+      console.log('Loading offers from browser storage...');
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Load from browser storage
+      const storedOffers = getStoredOffers();
       
-      // Mock offers data
-      const mockOffers: Offer[] = [
-        {
-          id: 'offer_001',
-          propertyId: 'prop_001',
-          buyerId: 'user_001',
-          buyerName: 'Sarah Al-Mansouri',
-          amount: 2500000,
-          currency: 'SAR',
-          message: 'I am very interested in this property. Please consider my offer.',
-          status: 'pending',
-          submittedAt: '2024-09-22T14:15:00Z',
-          conditions: ['Subject to inspection', '30-day closing'],
-        },
-        {
-          id: 'offer_002',
-          propertyId: 'prop_001',
-          buyerId: 'user_004',
-          buyerName: 'Khalid Al-Rashid',
-          amount: 2300000,
-          currency: 'SAR',
-          message: 'Cash offer, no conditions.',
-          status: 'rejected',
-          submittedAt: '2024-09-21T10:30:00Z',
-          respondedAt: '2024-09-21T16:45:00Z',
-        },
-      ];
+      // Convert stored offers to Offer format
+      const offers: Offer[] = storedOffers.map((storedOffer: StoredOffer) => ({
+        id: storedOffer.id,
+        propertyId: storedOffer.propertyId,
+        buyerId: storedOffer.buyerId,
+        buyerName: storedOffer.buyerName,
+        amount: storedOffer.amount,
+        currency: 'SAR',
+        message: 'I am interested in this property.',
+        status: storedOffer.status,
+        submittedAt: storedOffer.createdAt,
+        conditions: ['Subject to inspection', '30-day closing'],
+        expiresAt: storedOffer.expiresAt,
+      }));
       
       set({
-        offers: mockOffers,
+        offers: offers,
         isLoading: false,
       });
     } catch (error) {
@@ -112,20 +105,36 @@ export const useOfferStore = create<OfferState>((set, get) => ({
     set({ isLoading: true, error: null });
     
     try {
-      // TODO: Implement API call to create offer
-      console.log('Creating offer:', offerData);
+      console.log('Creating offer in browser storage:', offerData);
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const newOffer: Offer = {
+      // Create stored offer
+      const storedOffer: StoredOffer = {
         id: `offer_${Date.now()}`,
-        ...offerData,
+        propertyId: offerData.propertyId,
         buyerId: 'current_user', // TODO: Get from auth store
         buyerName: 'Current User', // TODO: Get from auth store
-        currency: 'SAR',
+        amount: offerData.amount,
         status: 'pending',
-        submittedAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days
+      };
+      
+      // Save to browser storage
+      saveStoredOffer(storedOffer);
+      
+      // Convert to Offer format
+      const newOffer: Offer = {
+        id: storedOffer.id,
+        propertyId: storedOffer.propertyId,
+        buyerId: storedOffer.buyerId,
+        buyerName: storedOffer.buyerName,
+        amount: storedOffer.amount,
+        currency: 'SAR',
+        message: offerData.message || 'I am interested in this property.',
+        status: storedOffer.status,
+        submittedAt: storedOffer.createdAt,
+        conditions: offerData.conditions || ['Subject to inspection', '30-day closing'],
+        expiresAt: storedOffer.expiresAt,
       };
       
       const offers = get().offers;
@@ -148,11 +157,16 @@ export const useOfferStore = create<OfferState>((set, get) => ({
     set({ isLoading: true, error: null });
     
     try {
-      // TODO: Implement API call to update offer status
-      console.log('Updating offer status:', id, status, message);
+      console.log('Updating offer status in browser storage:', id, status, message);
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Update in browser storage
+      const storedOffers = getStoredOffers();
+      const storedOffer = storedOffers.find(o => o.id === id);
+      
+      if (storedOffer) {
+        storedOffer.status = status;
+        saveStoredOffer(storedOffer);
+      }
       
       const offers = get().offers;
       const updatedOffers = offers.map(offer =>

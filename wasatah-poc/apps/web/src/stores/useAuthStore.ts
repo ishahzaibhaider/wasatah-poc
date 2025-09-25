@@ -1,7 +1,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { User, LoginForm, DigitalID, Role } from '../types/models';
-import { apiClient } from '../utils/api';
+import { 
+  getStoredUserByEmail, 
+  saveStoredUser, 
+  getCurrentUser, 
+  setCurrentUser,
+  addStoredLedgerEvent,
+  type StoredUser 
+} from '../utils/browserStorage';
 
 interface AuthState {
   // State
@@ -35,46 +42,101 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true, error: null });
         
         try {
-          const response = await apiClient.login(credentials.email, credentials.password);
+          // Check if user exists in browser storage
+          const storedUser = getStoredUserByEmail(credentials.email);
           
-          if (response.success && response.data) {
+          if (storedUser) {
+            // Convert stored user to User type
+            const user: User = {
+              id: storedUser.id,
+              name: storedUser.name,
+              email: storedUser.email,
+              phone: '+966501234567', // Default phone
+              role: storedUser.role,
+              createdAt: storedUser.createdAt,
+              isActive: true,
+              digitalId: {
+                id: storedUser.digitalId,
+                userId: storedUser.id,
+                verified: storedUser.verified,
+                verificationMethod: 'NAFTA_SIM' as const,
+                issuedAt: new Date().toISOString(),
+                expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+                zkpProof: 'zkp_proof_' + Date.now(),
+                riskScore: Math.floor(Math.random() * 20) + 5,
+              }
+            };
+            
+            setCurrentUser(storedUser);
+            
+            // Add login event to ledger
+            await addStoredLedgerEvent({
+              type: 'user_verified',
+              userId: user.id,
+              userName: user.name,
+              data: { email: user.email, role: user.role }
+            });
+            
             set({
-              user: response.data.user,
+              user,
               isAuthenticated: true,
               isLoading: false,
               error: null,
             });
           } else {
-            throw new Error(response.error || 'Login failed');
+            // Create new user for demo
+            const newStoredUser: StoredUser = {
+              id: 'demo_user_' + Date.now(),
+              name: 'Demo User',
+              email: credentials.email,
+              role: 'buyer',
+              digitalId: 'DID-' + Date.now(),
+              createdAt: new Date().toISOString(),
+              verified: true
+            };
+            
+            saveStoredUser(newStoredUser);
+            setCurrentUser(newStoredUser);
+            
+            const user: User = {
+              id: newStoredUser.id,
+              name: newStoredUser.name,
+              email: newStoredUser.email,
+              phone: '+966501234567',
+              role: newStoredUser.role,
+              createdAt: newStoredUser.createdAt,
+              isActive: true,
+              digitalId: {
+                id: newStoredUser.digitalId,
+                userId: newStoredUser.id,
+                verified: newStoredUser.verified,
+                verificationMethod: 'NAFTA_SIM' as const,
+                issuedAt: new Date().toISOString(),
+                expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+                zkpProof: 'zkp_proof_' + Date.now(),
+                riskScore: Math.floor(Math.random() * 20) + 5,
+              }
+            };
+            
+            // Add login event to ledger
+            await addStoredLedgerEvent({
+              type: 'user_verified',
+              userId: user.id,
+              userName: user.name,
+              data: { email: user.email, role: user.role }
+            });
+            
+            set({
+              user,
+              isAuthenticated: true,
+              isLoading: false,
+              error: null,
+            });
           }
         } catch (error) {
-          // For demo purposes, create a mock user if API fails
-          console.warn('API login failed, using mock user:', error);
-          const mockUser = {
-            id: 'demo_user_' + Date.now(),
-            name: 'Demo User',
-            email: credentials.email,
-            phone: '+966501234567',
-            role: 'buyer' as Role,
-            createdAt: new Date().toISOString(),
-            isActive: true,
-            digitalId: {
-              id: 'DID-' + Date.now(),
-              userId: 'demo_user_' + Date.now(),
-              verified: true,
-              verificationMethod: 'NAFTA_SIM' as const,
-              issuedAt: new Date().toISOString(),
-              expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
-              zkpProof: 'zkp_proof_' + Date.now(),
-              riskScore: Math.floor(Math.random() * 20) + 5,
-            }
-          };
-          
           set({
-            user: mockUser,
-            isAuthenticated: true,
             isLoading: false,
-            error: null,
+            error: error instanceof Error ? error.message : 'Login failed',
           });
         }
       },
@@ -83,33 +145,32 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true, error: null });
         
         try {
-          const response = await apiClient.register(userData);
-          
-          if (response.success && response.data) {
-            set({
-              user: response.data.user,
-              isAuthenticated: true,
-              isLoading: false,
-              error: null,
-            });
-          } else {
-            throw new Error(response.error || 'Registration failed');
-          }
-        } catch (error) {
-          // For demo purposes, create a mock user if API fails
-          console.warn('API registration failed, using mock user:', error);
-          const mockUser = {
+          // Create new user in browser storage
+          const newStoredUser: StoredUser = {
             id: 'user_' + Date.now(),
             name: userData.name,
             email: userData.email,
-            phone: userData.phone,
-            role: userData.role as Role,
+            role: userData.role || 'buyer',
+            digitalId: 'DID-' + Date.now(),
             createdAt: new Date().toISOString(),
+            verified: true
+          };
+          
+          saveStoredUser(newStoredUser);
+          setCurrentUser(newStoredUser);
+          
+          const user: User = {
+            id: newStoredUser.id,
+            name: newStoredUser.name,
+            email: newStoredUser.email,
+            phone: userData.phone || '+966501234567',
+            role: newStoredUser.role,
+            createdAt: newStoredUser.createdAt,
             isActive: true,
             digitalId: {
-              id: 'DID-' + Date.now(),
-              userId: 'user_' + Date.now(),
-              verified: true,
+              id: newStoredUser.digitalId,
+              userId: newStoredUser.id,
+              verified: newStoredUser.verified,
               verificationMethod: 'NAFTA_SIM' as const,
               issuedAt: new Date().toISOString(),
               expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
@@ -118,16 +179,30 @@ export const useAuthStore = create<AuthState>()(
             }
           };
           
+          // Add registration event to ledger
+          await addStoredLedgerEvent({
+            type: 'user_registered',
+            userId: user.id,
+            userName: user.name,
+            data: { email: user.email, role: user.role, digitalId: user.digitalId }
+          });
+          
           set({
-            user: mockUser,
+            user,
             isAuthenticated: true,
             isLoading: false,
             error: null,
+          });
+        } catch (error) {
+          set({
+            isLoading: false,
+            error: error instanceof Error ? error.message : 'Registration failed',
           });
         }
       },
 
       logout: () => {
+        setCurrentUser(null);
         set({
           user: null,
           isAuthenticated: false,

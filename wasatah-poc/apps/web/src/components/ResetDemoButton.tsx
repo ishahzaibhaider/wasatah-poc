@@ -4,7 +4,7 @@ import { useOfferStore } from '../stores/useOfferStore';
 import { useSecurityStore } from '../stores/useSecurityStore';
 import { useAuthStore } from '../stores/useAuthStore';
 import { useRoleStore } from '../stores/useRoleStore';
-import { isReadonlyMode } from '../utils/api';
+import { clearAllStoredData } from '../utils/browserStorage';
 
 const ResetDemoButton = () => {
   const [isResetting, setIsResetting] = useState(false);
@@ -15,11 +15,6 @@ const ResetDemoButton = () => {
   const { clearRole } = useRoleStore();
 
   const handleResetDemo = async () => {
-    if (isReadonlyMode()) {
-      alert('Demo reset is not available in read-only mode.');
-      return;
-    }
-
     if (!confirm('Are you sure you want to reset the demo? This will clear all data and return to the initial state.')) {
       return;
     }
@@ -27,18 +22,14 @@ const ResetDemoButton = () => {
     setIsResetting(true);
     
     try {
+      // Clear all browser storage data
+      clearAllStoredData();
+      
       // Reset all stores to initial state
       await resetLedger();
       clearOffers();
       clearRiskFlags();
       clearRole();
-      
-      // Clear localStorage
-      localStorage.removeItem('wasatah-auth');
-      localStorage.removeItem('wasatah-role');
-      localStorage.removeItem('wasatah-offers');
-      localStorage.removeItem('wasatah-security');
-      localStorage.removeItem('wasatah-ledger');
       
       // Logout user
       logout();
@@ -54,9 +45,7 @@ const ResetDemoButton = () => {
     }
   };
 
-  if (isReadonlyMode()) {
-    return null;
-  }
+  // Always show reset button since we're now using browser storage
 
   return (
     <button

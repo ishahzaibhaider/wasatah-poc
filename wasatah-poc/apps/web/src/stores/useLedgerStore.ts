@@ -1,7 +1,12 @@
 import { create } from 'zustand';
 import type { LedgerEvent, EventType } from '../types/models';
-import { apiClient, isReadonlyMode } from '../utils/api';
-import { cloneSeedLedgerEvents } from '../utils/data';
+import { 
+  getStoredLedgerEvents, 
+  addStoredLedgerEvent, 
+  clearAllStoredData,
+  initializeDemoData,
+  type StoredLedgerEvent 
+} from '../utils/browserStorage';
 
 interface LedgerState {
   // State
@@ -31,42 +36,36 @@ export const useLedgerStore = create<LedgerState>((set, get) => ({
     set({ isLoading: true, error: null });
     
     try {
-      if (isReadonlyMode()) {
-        // In read-only mode, load from bundled seed data
-        console.log('Loading ledger events from seed data (read-only mode)...');
-        const seedEvents = cloneSeedLedgerEvents();
-        set({
-          events: seedEvents,
-          isLoading: false,
-        });
-        return;
-      }
-
-      // Try to load from API
-      console.log('Loading ledger events from API...');
-      const response = await apiClient.getLedgerEvents();
+      console.log('Loading ledger events from browser storage...');
       
-      if (response.success && response.data) {
-        set({
-          events: response.data.events || [],
-          isLoading: false,
-        });
-      } else {
-        // Fallback to seed data if API fails
-        console.warn('API failed, falling back to seed data:', response.error);
-        const seedEvents = cloneSeedLedgerEvents();
-        set({
-          events: seedEvents,
-          isLoading: false,
-        });
-      }
-    } catch (error) {
-      // Fallback to seed data on any error
-      console.warn('Error loading from API, falling back to seed data:', error);
-      const seedEvents = cloneSeedLedgerEvents();
+      // Initialize demo data if empty
+      initializeDemoData();
+      
+      // Load from browser storage
+      const storedEvents = getStoredLedgerEvents();
+      
+      // Convert stored events to LedgerEvent format
+      const events: LedgerEvent[] = storedEvents.map((storedEvent: StoredLedgerEvent) => ({
+        id: storedEvent.id,
+        type: storedEvent.type as EventType,
+        actorId: storedEvent.userId,
+        actorName: storedEvent.userName,
+        timestamp: storedEvent.timestamp,
+        details: storedEvent.data,
+        signature: storedEvent.signature,
+        blockHash: storedEvent.blockHash,
+      }));
+      
       set({
-        events: seedEvents,
+        events: events,
         isLoading: false,
+      });
+    } catch (error) {
+      console.error('Error loading ledger events:', error);
+      set({
+        events: [],
+        isLoading: false,
+        error: error instanceof Error ? error.message : 'Failed to load ledger events',
       });
     }
   },
@@ -75,27 +74,36 @@ export const useLedgerStore = create<LedgerState>((set, get) => ({
     set({ isLoading: true, error: null });
     
     try {
-      if (isReadonlyMode()) {
-        throw new Error('Cannot add events in read-only mode');
-      }
-
-      console.log('Adding ledger event via API:', type, actorId, actorName, details);
+      console.log('Adding ledger event to browser storage:', type, actorId, actorName, details);
       
-      // Call API to append event
-      const response = await apiClient.appendLedgerEvent(type, actorId, actorName, details);
+      // Add event to browser storage
+      const storedEvent = addStoredLedgerEvent({
+        type,
+        userId: actorId,
+        userName: actorName,
+        data: details
+      });
       
-      if (response.success && response.data) {
-        // Add the new event to the local state
-        const events = get().events;
-        set({
-          events: [response.data, ...events], // Add to beginning for chronological order
-          isLoading: false,
-        });
-        
-        return response.data;
-      } else {
-        throw new Error(response.error || 'Failed to add ledger event');
-      }
+      // Convert to LedgerEvent format
+      const newEvent: LedgerEvent = {
+        id: storedEvent.id,
+        type: storedEvent.type as EventType,
+        actorId: storedEvent.userId,
+        actorName: storedEvent.userName,
+        timestamp: storedEvent.timestamp,
+        details: storedEvent.data,
+        signature: storedEvent.signature,
+        blockHash: storedEvent.blockHash,
+      };
+      
+      // Add the new event to the local state
+      const events = get().events;
+      set({
+        events: [newEvent, ...events], // Add to beginning for chronological order
+        isLoading: false,
+      });
+      
+      return newEvent;
     } catch (error) {
       set({
         isLoading: false,
@@ -129,27 +137,18 @@ export const useLedgerStore = create<LedgerState>((set, get) => ({
     set({ isLoading: true, error: null });
     
     try {
-      if (isReadonlyMode()) {
-        // In read-only mode, just reload from seed data
-        const seedEvents = cloneSeedLedgerEvents();
-        set({
-          events: seedEvents,
-          isLoading: false,
-        });
-        return;
-      }
-
-      console.log('Resetting ledger via API...');
-      const response = await apiClient.resetLedger();
+      console.log('Resetting ledger in browser storage...');
       
-      if (response.success && response.data) {
-        set({
-          events: response.data.events || [],
-          isLoading: false,
-        });
-      } else {
-        throw new Error(response.error || 'Failed to reset ledger');
-      }
+      // Clear all stored data
+      clearAllStoredData();
+      
+      // Initialize fresh demo data
+      initializeDemoData();
+      
+      // Reload events
+      await get().loadEvents();
+      
+      set({ isLoading: false });
     } catch (error) {
       set({
         isLoading: false,
