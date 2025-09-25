@@ -10,6 +10,9 @@
   VITE_READONLY = "false"
   CI = "false"
 
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
+
 [[headers]]
   for = "/*"
   [headers.values]
