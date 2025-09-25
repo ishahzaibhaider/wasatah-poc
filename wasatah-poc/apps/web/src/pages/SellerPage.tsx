@@ -2,15 +2,11 @@ import { useState, useEffect } from 'react';
 import { Card, CardBody } from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import { useNavigate } from 'react-router-dom';
-import propertyData from '../data/property.json';
 import { useOfferStore } from '../stores/useOfferStore';
-import { usePropertyStore } from '../stores/usePropertyStore';
 import { useLedgerStore } from '../stores/useLedgerStore';
-import { createPseudoSignature } from '../utils/crypto';
-import { isReadonlyMode } from '../utils/api';
-import PropertyEditModal from '../components/PropertyEditModal';
+import { useAuthStore } from '../stores/useAuthStore';
+import { getStoredProperties, getStoredOffersByProperty, saveStoredOffer } from '../utils/browserStorage';
 import Notification from '../components/Notification';
-import type { Property } from '../types/models';
 
 const SellerPage = () => {
   const navigate = useNavigate();
@@ -27,28 +23,53 @@ const SellerPage = () => {
   
   const { 
     updateOfferStatus, 
-    getOffersByProperty, 
     loadOffers, 
     isLoading: offersLoading 
   } = useOfferStore();
-  
-  const { 
-    loadProperty
-  } = usePropertyStore();
 
   const { addEvent } = useLedgerStore();
+  const { user } = useAuthStore();
   
-  // Get the featured property from the seed data
-  const property = propertyData[0] as Property;
+  // Get the featured property from browser storage
+  const properties = getStoredProperties();
+  const property = properties[0]; // Get the first property
 
-  // Load offers and property on component mount
+  // Load offers on component mount and add dummy offers if none exist
   useEffect(() => {
     loadOffers();
-    loadProperty(property.id);
-  }, [loadOffers, loadProperty, property.id]);
+    
+    // Add some dummy offers if none exist
+    const existingOffers = getStoredOffersByProperty(property.id);
+    if (existingOffers.length === 0) {
+      const dummyOffers = [
+        {
+          id: `offer_dummy_1_${Date.now()}`,
+          propertyId: property.id,
+          buyerId: 'dummy_buyer_1',
+          buyerName: 'Sarah Al-Mansouri',
+          amount: 2500000,
+          status: 'pending' as const,
+          createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
+          expiresAt: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days from now
+        },
+        {
+          id: `offer_dummy_2_${Date.now()}`,
+          propertyId: property.id,
+          buyerId: 'dummy_buyer_2',
+          buyerName: 'Khalid Al-Rashid',
+          amount: 2300000,
+          status: 'pending' as const,
+          createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
+          expiresAt: new Date(Date.now() + 6 * 24 * 60 * 60 * 1000).toISOString(), // 6 days from now
+        }
+      ];
+      
+      dummyOffers.forEach(offer => saveStoredOffer(offer));
+    }
+  }, [loadOffers, property.id]);
 
-  // Get offers for this property
-  const propertyOffers = getOffersByProperty(property.id);
+  // Get offers for this property from browser storage
+  const propertyOffers = getStoredOffersByProperty(property.id);
 
   // Use the ownership history from the property data
   const ownershipHistory = property.ownershipHistory;
@@ -57,6 +78,21 @@ const SellerPage = () => {
     try {
       const status = action === 'accept' ? 'accepted' : 'rejected';
       await updateOfferStatus(offerId, status);
+      
+      // Find the offer to get details
+      const offer = propertyOffers.find(o => o.id === offerId);
+      
+      // Add ledger event for offer response
+      await addEvent(`offer_${action}ed`, user?.id || 'seller', user?.name || 'Property Seller', {
+        offerId: offerId,
+        propertyId: property.id,
+        buyerId: offer?.buyerId,
+        buyerName: offer?.buyerName,
+        amount: offer?.amount,
+        action: action,
+        respondedAt: new Date().toISOString()
+      });
+      
       setNotification({
         message: `Offer ${action}ed successfully!`,
         type: 'success',
@@ -81,18 +117,17 @@ const SellerPage = () => {
       const transactionPayload = {
         offerId,
         buyerId,
-        sellerId: property.ownerId,
+        sellerId: user?.id || 'seller',
         propertyId: property.id,
         amount,
         completedAt: new Date().toISOString(),
-        sellerName: property.ownerName
+        sellerName: user?.name || 'Property Seller'
       };
 
-      const signature = createPseudoSignature(transactionPayload);
-
-      await addEvent('transfer_completed', property.ownerId, property.ownerName, {
+      // Add ledger event for transaction completion
+      await addEvent('transfer_completed', user?.id || 'seller', user?.name || 'Property Seller', {
         ...transactionPayload,
-        signature,
+        signature: `sig_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         transactionHash: `tx_${Date.now()}`,
         status: 'completed'
       });
@@ -273,14 +308,10 @@ const SellerPage = () => {
                   <div key={offer.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
                     <div className="flex justify-between items-start mb-3">
                       <div className="text-lg font-bold text-primary-600">
-                        {new Intl.NumberFormat('en-SA', {
-                          style: 'currency',
-                          currency: 'SAR',
-                          minimumFractionDigits: 0
-                        }).format(offer.amount)}
+                        SAR {offer.amount.toLocaleString()}
                       </div>
                       <span className="text-sm text-gray-500">
-                        {new Date(offer.submittedAt).toLocaleDateString()}
+                        {new Date(offer.createdAt).toLocaleDateString()}
                       </span>
                     </div>
                     
@@ -289,7 +320,7 @@ const SellerPage = () => {
                       <div className="text-sm text-gray-500">Buyer ID: {offer.buyerId}</div>
                     </div>
                     
-                    <p className="text-sm text-gray-600 mb-3">{offer.message}</p>
+                    <p className="text-sm text-gray-600 mb-3">I am interested in this property.</p>
                     
                     <div className="flex items-center justify-between">
                       <Badge 
@@ -318,7 +349,7 @@ const SellerPage = () => {
                         </div>
                       )}
                       
-                      {offer.status === 'accepted' && !isReadonlyMode() && (
+                      {offer.status === 'accepted' && (
                         <button 
                           onClick={() => handleCompleteTransaction(offer.id, offer.buyerId, offer.amount)}
                           className="btn btn-primary btn-sm"
@@ -335,12 +366,21 @@ const SellerPage = () => {
         </div>
       </div>
 
-      {/* Property Edit Modal */}
-      <PropertyEditModal
-        property={property}
-        isOpen={isEditing}
-        onClose={() => setIsEditing(false)}
-      />
+      {/* Property Edit Modal - Disabled for demo */}
+      {isEditing && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md">
+            <h3 className="text-lg font-semibold mb-4">Edit Property</h3>
+            <p className="text-gray-600 mb-4">Property editing is disabled in demo mode.</p>
+            <button 
+              onClick={() => setIsEditing(false)}
+              className="btn btn-primary"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Notification */}
       <Notification
