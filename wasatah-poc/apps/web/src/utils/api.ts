@@ -2,7 +2,7 @@
 import type { LedgerEvent, EventType } from '../types/models';
 
 // API configuration
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://68d4f5b9c0da7f00085dc062--wasatah-poc.netlify.app/.netlify/functions/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://wasatah-poc.netlify.app/.netlify/functions/api';
 const IS_READONLY = import.meta.env.VITE_READONLY === 'true';
 
 // API response types

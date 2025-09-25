@@ -7,7 +7,7 @@ export default defineConfig({
   define: {
     // Make environment variables available at build time
     'import.meta.env.VITE_READONLY': JSON.stringify(process.env.VITE_READONLY || 'false'),
-    'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'https://68d4f5b9c0da7f00085dc062--wasatah-poc.netlify.app/.netlify/functions/api'),
+    'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'https://wasatah-poc.netlify.app/.netlify/functions/api'),
   },
   build: {
     outDir: 'dist',

@@ -6,7 +6,7 @@
 [build.environment]
   NODE_VERSION = "20"
   NPM_VERSION = "10"
-  VITE_API_URL = "https://prismatic-panda-fca344.netlify.app/.netlify/functions/api"
+  VITE_API_URL = "https://wasatah-poc.netlify.app/.netlify/functions/api"
   VITE_READONLY = "false"
   CI = "false"
 

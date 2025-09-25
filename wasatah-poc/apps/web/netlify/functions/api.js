@@ -66,7 +66,7 @@ const createCollections = async () => {
 };
 
 const getCorsHeaders = (origin) => ({
-  'Access-Control-Allow-Origin': origin || 'https://68d4f5b9c0da7f00085dc062--wasatah-poc.netlify.app',
+  'Access-Control-Allow-Origin': origin || 'https://wasatah-poc.netlify.app',
   'Access-Control-Allow-Headers': 'Content-Type',
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
   'Access-Control-Allow-Credentials': 'true'
