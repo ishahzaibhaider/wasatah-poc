@@ -194,17 +194,11 @@ const DemoScriptPage = () => {
       {/* Demo Steps */}
       <div className="space-y-6">
         {demoSteps.map((step, index) => (
-          <Card key={step.id} className={`transition-all duration-300 ${
-            currentStep === index ? 'ring-2 ring-primary-500 shadow-lg' : 'hover:shadow-md'
-          }`}>
+          <Card key={step.id} className="transition-all duration-300 hover:shadow-md">
             <CardBody className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center space-x-4">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                    currentStep === index 
-                      ? 'bg-primary-600 text-white' 
-                      : 'bg-gray-200 text-gray-600'
-                  }`}>
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-primary-600 text-white">
                     {step.id}
                   </div>
                   <div>
