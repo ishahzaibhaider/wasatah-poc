@@ -68,16 +68,13 @@ const BuyerPage = () => {
       
       const newOffer = await createOffer(offerData);
       
-      // Update offer status to "locked" after creation
-      await updateOfferStatus(newOffer.id, 'locked');
-      
-      // Add ledger event for offer_made
+      // Add ledger event for offer_made (keep status as pending for seller review)
       await addEvent('offer_made', user?.id || 'current_user', user?.name || 'Current User', {
         offerId: newOffer.id,
         propertyId: property.id,
         amount: parseInt(offerAmount),
         message: offerMessage,
-        status: 'locked',
+        status: 'pending',
         submittedAt: newOffer.submittedAt
       });
       
@@ -85,9 +82,9 @@ const BuyerPage = () => {
       setOfferAmount('');
       setOfferMessage('');
       
-      // Show success message with locked status
+      // Show success message
       setNotification({
-        message: 'Offer submitted and locked successfully! 🔒',
+        message: 'Offer submitted successfully! Waiting for seller response. ⏳',
         type: 'success',
         isVisible: true
       });
