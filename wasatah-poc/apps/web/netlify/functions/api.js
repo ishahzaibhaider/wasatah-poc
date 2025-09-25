@@ -13,7 +13,12 @@ const connectToDatabase = async () => {
 
   try {
     console.log('🔌 Connecting to MongoDB Atlas...');
-    client = new MongoClient(MONGODB_URI);
+    client = new MongoClient(MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000, // 5 second timeout
+      connectTimeoutMS: 5000,
+      maxPoolSize: 10,
+      minPoolSize: 1,
+    });
     await client.connect();
     db = client.db(DB_NAME);
     console.log('✅ Connected to MongoDB Atlas successfully');
@@ -83,6 +88,9 @@ exports.handler = async (event, context) => {
       body: ''
     };
   }
+
+  // Set timeout to prevent 504 errors
+  context.callbackWaitsForEmptyEventLoop = false;
 
   try {
     const db = await connectToDatabase();
