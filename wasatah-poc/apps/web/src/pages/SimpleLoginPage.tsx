@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Card, CardBody } from '../components/ui/Card';
 import { useAuthStore } from '../stores/useAuthStore';
 import { useLedgerStore } from '../stores/useLedgerStore';
-import { useRoleStore } from '../stores/useRoleStore';
 
 const SimpleLoginPage = () => {
   const location = useLocation();

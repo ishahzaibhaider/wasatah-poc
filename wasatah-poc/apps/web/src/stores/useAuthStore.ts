@@ -55,7 +55,7 @@ export const useAuthStore = create<AuthState>()(
             name: 'Demo User',
             email: credentials.email,
             phone: '+966501234567',
-            role: 'buyer',
+            role: 'buyer' as Role,
             createdAt: new Date().toISOString(),
             isActive: true,
             digitalId: {
