@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import PageHeading from '../components/layout/PageHeading';
 import { Card, CardBody } from '../components/ui/Card';
 import { useRoleStore } from '../stores/useRoleStore';
 import { useAuthStore } from '../stores/useAuthStore';
@@ -90,12 +89,11 @@ const RolePage = () => {
       )}
 
       <div className="grid lg:grid-cols-3 gap-10">
-        {roles.map((role, index) => (
+        {roles.map((role) => (
           <Card
             key={role.id}
             onClick={() => handleRoleSelect(role.id, role.path)}
-            className="interactive-card text-center group cursor-pointer"
-            style={{ animationDelay: `${index * 0.1}s` }}
+            className="interactive-card text-center group cursor-pointer animate-fade-in"
           >
             <CardBody className="p-12">
               {/* Icon with gradient background */}
