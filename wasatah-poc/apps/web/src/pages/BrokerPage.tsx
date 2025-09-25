@@ -25,16 +25,23 @@ const BrokerPage = () => {
   const { addEvent } = useLedgerStore();
   const { evaluateImpersonation } = useSecurityStore();
 
-  const mockBuyers = [
-    { id: 'buyer_001', name: 'Sarah Al-Mansouri', email: 'sarah@example.com', kycStatus: 'verified' as const },
-    { id: 'buyer_002', name: 'Ahmed Al-Rashid', email: 'ahmed@example.com', kycStatus: 'verified' as const },
-    { id: 'buyer_003', name: 'Fatima Al-Zahra', email: 'fatima@example.com', kycStatus: 'pending_review' as const }
+  interface MockUser {
+    id: string;
+    name: string;
+    email: string;
+    kycStatus: 'verified' | 'pending_review' | 'not_started';
+  }
+
+  const mockBuyers: MockUser[] = [
+    { id: 'buyer_001', name: 'Sarah Al-Mansouri', email: 'sarah@example.com', kycStatus: 'verified' },
+    { id: 'buyer_002', name: 'Ahmed Al-Rashid', email: 'ahmed@example.com', kycStatus: 'verified' },
+    { id: 'buyer_003', name: 'Fatima Al-Zahra', email: 'fatima@example.com', kycStatus: 'pending_review' }
   ];
 
-  const mockSellers = [
-    { id: 'seller_001', name: 'Khalid Al-Sabah', email: 'khalid@example.com', kycStatus: 'verified' as const },
-    { id: 'seller_002', name: 'Noura Al-Mutairi', email: 'noura@example.com', kycStatus: 'verified' as const },
-    { id: 'seller_003', name: 'Omar Al-Ghamdi', email: 'omar@example.com', kycStatus: 'not_started' as const }
+  const mockSellers: MockUser[] = [
+    { id: 'seller_001', name: 'Khalid Al-Sabah', email: 'khalid@example.com', kycStatus: 'verified' },
+    { id: 'seller_002', name: 'Noura Al-Mutairi', email: 'noura@example.com', kycStatus: 'verified' },
+    { id: 'seller_003', name: 'Omar Al-Ghamdi', email: 'omar@example.com', kycStatus: 'not_started' }
   ];
 
   const mockProperties = [
