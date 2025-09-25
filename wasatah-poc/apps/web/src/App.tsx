@@ -12,6 +12,7 @@ import BuyerPage from './pages/BuyerPage';
 import ExplorerPage from './pages/ExplorerPage';
 import AboutZKPage from './pages/AboutZKPage';
 import DemoScriptPage from './pages/DemoScriptPage';
+import KYCPage from './pages/KYCPage';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
                 <Route path="/explorer" element={<ExplorerPage />} />
                 <Route path="/about-zk" element={<AboutZKPage />} />
                 <Route path="/demo-script" element={<DemoScriptPage />} />
+                <Route path="/kyc" element={<KYCPage />} />
               </Routes>
             </Container>
           </main>

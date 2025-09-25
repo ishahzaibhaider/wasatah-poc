@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { User, LoginForm, DigitalID } from '../types/models';
+import type { User, LoginForm, DigitalID, KYCStatus } from '../types/models';
 import { 
   getStoredUserByEmail, 
   saveStoredUser, 
@@ -23,6 +23,7 @@ interface AuthState {
   updateUser: (user: Partial<User>) => void;
   setUser: (user: User) => void;
   verifyIdentity: (userId: string) => Promise<DigitalID>;
+  updateKYCStatus: (status: KYCStatus) => void;
   clearError: () => void;
   setLoading: (loading: boolean) => void;
 }
@@ -63,7 +64,8 @@ export const useAuthStore = create<AuthState>()(
                 expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
                 zkpProof: 'zkp_proof_' + Date.now(),
                 riskScore: Math.floor(Math.random() * 20) + 5,
-              }
+              },
+              kycStatus: 'not_started' as KYCStatus
             };
             
             setCurrentUser(storedUser);
@@ -114,7 +116,8 @@ export const useAuthStore = create<AuthState>()(
                 expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
                 zkpProof: 'zkp_proof_' + Date.now(),
                 riskScore: Math.floor(Math.random() * 20) + 5,
-              }
+              },
+              kycStatus: 'not_started' as KYCStatus
             };
             
             // Add login event to ledger
@@ -267,6 +270,15 @@ export const useAuthStore = create<AuthState>()(
 
       clearError: () => {
         set({ error: null });
+      },
+
+      updateKYCStatus: (status: KYCStatus) => {
+        const currentUser = get().user;
+        if (currentUser) {
+          set({
+            user: { ...currentUser, kycStatus: status },
+          });
+        }
       },
 
       setLoading: (loading: boolean) => {

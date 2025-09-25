@@ -5,6 +5,7 @@ import { createPseudoSignature } from '../utils/crypto';
 import { isReadonlyMode } from '../utils/api';
 import Notification from '../components/Notification';
 import { Card, CardBody } from '../components/ui/Card';
+import VerificationBadge from '../components/VerificationBadge';
 
 const BrokerPage = () => {
   const [showLinkModal, setShowLinkModal] = useState(false);
@@ -26,15 +27,15 @@ const BrokerPage = () => {
   const { evaluateImpersonation } = useSecurityStore();
 
   const mockBuyers = [
-    { id: 'buyer_001', name: 'Sarah Al-Mansouri', email: 'sarah@example.com' },
-    { id: 'buyer_002', name: 'Ahmed Al-Rashid', email: 'ahmed@example.com' },
-    { id: 'buyer_003', name: 'Fatima Al-Zahra', email: 'fatima@example.com' }
+    { id: 'buyer_001', name: 'Sarah Al-Mansouri', email: 'sarah@example.com', kycStatus: 'verified' as const },
+    { id: 'buyer_002', name: 'Ahmed Al-Rashid', email: 'ahmed@example.com', kycStatus: 'verified' as const },
+    { id: 'buyer_003', name: 'Fatima Al-Zahra', email: 'fatima@example.com', kycStatus: 'pending_review' as const }
   ];
 
   const mockSellers = [
-    { id: 'seller_001', name: 'Khalid Al-Sabah', email: 'khalid@example.com' },
-    { id: 'seller_002', name: 'Noura Al-Mutairi', email: 'noura@example.com' },
-    { id: 'seller_003', name: 'Omar Al-Ghamdi', email: 'omar@example.com' }
+    { id: 'seller_001', name: 'Khalid Al-Sabah', email: 'khalid@example.com', kycStatus: 'verified' as const },
+    { id: 'seller_002', name: 'Noura Al-Mutairi', email: 'noura@example.com', kycStatus: 'verified' as const },
+    { id: 'seller_003', name: 'Omar Al-Ghamdi', email: 'omar@example.com', kycStatus: 'not_started' as const }
   ];
 
   const mockProperties = [
@@ -438,7 +439,7 @@ const BrokerPage = () => {
                   <option value="">Choose a buyer...</option>
                   {mockBuyers.map((buyer) => (
                     <option key={buyer.id} value={buyer.id}>
-                      {buyer.name} ({buyer.email})
+                      {buyer.name} ({buyer.email}) - {buyer.kycStatus === 'verified' ? '✅ Verified' : buyer.kycStatus === 'pending_review' ? '⏳ Under Review' : '🔒 Not Verified'}
                     </option>
                   ))}
                 </select>
@@ -456,7 +457,7 @@ const BrokerPage = () => {
                   <option value="">Choose a seller...</option>
                   {mockSellers.map((seller) => (
                     <option key={seller.id} value={seller.id}>
-                      {seller.name} ({seller.email})
+                      {seller.name} ({seller.email}) - {seller.kycStatus === 'verified' ? '✅ Verified' : seller.kycStatus === 'pending_review' ? '⏳ Under Review' : '🔒 Not Verified'}
                     </option>
                   ))}
                 </select>

@@ -20,6 +20,7 @@ export interface User {
   phone?: string;
   role: Role;
   digitalId?: DigitalID;
+  kycStatus?: KYCStatus;
   createdAt: string;
   lastLoginAt?: string;
   isActive: boolean;
@@ -239,4 +240,57 @@ export interface BrokerConnection {
   createdAt: string;
   completedAt?: string;
   notes?: string;
+}
+
+// KYC Types
+export type KYCStatus = 'not_started' | 'in_progress' | 'pending_review' | 'verified' | 'rejected' | 'expired';
+
+export interface KYCDocument {
+  id: string;
+  type: 'national_id' | 'passport' | 'driving_license' | 'utility_bill' | 'bank_statement';
+  fileName: string;
+  fileSize: number;
+  uploadedAt: string;
+  status: 'uploaded' | 'processing' | 'verified' | 'rejected';
+  rejectionReason?: string;
+}
+
+export interface KYCPersonalInfo {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  nationality: string;
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+  };
+  phoneNumber: string;
+}
+
+export interface KYCLivenessCheck {
+  id: string;
+  status: 'pending' | 'completed' | 'failed';
+  completedAt?: string;
+  confidence: number; // 0-100
+  attempts: number;
+  maxAttempts: number;
+}
+
+export interface KYCData {
+  id: string;
+  userId: string;
+  status: KYCStatus;
+  personalInfo?: KYCPersonalInfo;
+  documents: KYCDocument[];
+  livenessCheck?: KYCLivenessCheck;
+  submittedAt?: string;
+  reviewedAt?: string;
+  verifiedAt?: string;
+  expiresAt?: string;
+  rejectionReason?: string;
+  riskScore: number; // 0-100
+  verificationMethod: 'manual' | 'automated' | 'hybrid';
 }

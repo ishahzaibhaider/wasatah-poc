@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../stores/useAuthStore';
 import { isReadonlyMode } from '../utils/api';
 import ResetDemoButton from './ResetDemoButton';
+import VerificationBadge from './VerificationBadge';
 
 const TopBar = () => {
   const { user, isAuthenticated, logout } = useAuthStore();
@@ -133,6 +134,15 @@ const TopBar = () => {
                 <div className="text-sm text-secondary-600">
                   Welcome, <span className="font-semibold text-secondary-900">{user?.name}</span>
                 </div>
+                <VerificationBadge kycStatus={user?.kycStatus} size="sm" />
+                {user?.kycStatus !== 'verified' && (
+                  <Link
+                    to="/kyc"
+                    className="text-xs bg-primary-100 text-primary-700 px-2 py-1 rounded-full hover:bg-primary-200 transition-colors"
+                  >
+                    Complete KYC
+                  </Link>
+                )}
                 <button
                   onClick={logout}
                   className="btn btn-ghost btn-sm"

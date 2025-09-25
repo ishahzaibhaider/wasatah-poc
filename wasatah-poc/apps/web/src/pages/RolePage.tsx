@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardBody } from '../components/ui/Card';
 import { useRoleStore } from '../stores/useRoleStore';
 import { useAuthStore } from '../stores/useAuthStore';
+import VerificationBadge from '../components/VerificationBadge';
 
 const RolePage = () => {
   const navigate = useNavigate();
@@ -50,6 +51,22 @@ const RolePage = () => {
         <p className="text-lg text-secondary-600 max-w-2xl mx-auto leading-relaxed">
           Select how you want to experience the future of real estate transactions
         </p>
+        
+        {/* User Status */}
+        <div className="mt-6 flex items-center justify-center gap-4">
+          <div className="text-sm text-gray-600">
+            Welcome, <span className="font-semibold">{user?.name}</span>
+          </div>
+          <VerificationBadge kycStatus={user?.kycStatus} />
+          {user?.kycStatus !== 'verified' && (
+            <button
+              onClick={() => navigate('/kyc')}
+              className="text-sm bg-primary-100 text-primary-700 px-3 py-1 rounded-full hover:bg-primary-200 transition-colors"
+            >
+              Complete KYC
+            </button>
+          )}
+        </div>
       </div>
 
       {/* User Info */}

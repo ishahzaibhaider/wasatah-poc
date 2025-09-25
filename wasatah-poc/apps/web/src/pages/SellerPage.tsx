@@ -6,6 +6,7 @@ import { useOfferStore } from '../stores/useOfferStore';
 import { useLedgerStore } from '../stores/useLedgerStore';
 import { useAuthStore } from '../stores/useAuthStore';
 import { getStoredProperties, getStoredOffersByProperty, saveStoredOffer } from '../utils/browserStorage';
+import VerificationBadge from '../components/VerificationBadge';
 import Notification from '../components/Notification';
 
 const SellerPage = () => {
@@ -321,7 +322,10 @@ const SellerPage = () => {
                     </div>
                     
                     <div className="mb-3">
-                      <div className="font-medium text-gray-900">{offer.buyerName}</div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="font-medium text-gray-900">{offer.buyerName}</div>
+                        <VerificationBadge kycStatus="verified" size="sm" showText={false} />
+                      </div>
                       <div className="text-sm text-gray-500">Buyer ID: {offer.buyerId}</div>
                     </div>
                     
