@@ -17,7 +17,7 @@ const corsOptions = {
   origin: [
     'http://localhost:5173', 
     'http://127.0.0.1:5173',
-    'https://prismatic-panda-fca344.netlify.app',
+    'https://68d4f5b9c0da7f00085dc062--wasatah-poc.netlify.app',
     'https://wasatah.netlify.app'
   ],
   credentials: true,
