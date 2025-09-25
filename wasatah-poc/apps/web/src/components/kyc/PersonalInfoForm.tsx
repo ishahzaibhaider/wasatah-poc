@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useKYCStore } from '../../stores/useKYCStore';
-import { KYCPersonalInfo } from '../../types/models';
+import type { KYCPersonalInfo } from '../../types/models';
 import { Card, CardBody, CardHeader } from '../ui/Card';
-import { Button } from '../ui/Button';
+import { Button } from '../ui';
 
 interface PersonalInfoFormProps {
   onNext: () => void;

@@ -3,8 +3,7 @@ import { useAuthStore } from '../stores/useAuthStore';
 import { useKYCStore } from '../stores/useKYCStore';
 import KYCFlow from '../components/kyc/KYCFlow';
 import { Card, CardBody, CardHeader } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
-import { Badge } from '../components/ui/Badge';
+import { Button, Badge } from '../components/ui';
 import { useEffect } from 'react';
 
 const KYCPage = () => {

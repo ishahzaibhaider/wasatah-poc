@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { KYCData, KYCStatus, KYCPersonalInfo, KYCDocument, KYCLivenessCheck } from '../types/models';
+import type { KYCData, KYCStatus, KYCPersonalInfo, KYCDocument, KYCLivenessCheck } from '../types/models';
 import { useAuthStore } from './useAuthStore';
 
 interface KYCState {
@@ -101,7 +101,7 @@ export const useKYCStore = create<KYCState>()(
           setTimeout(() => {
             const success = Math.random() > 0.2; // 80% success rate for demo
             const riskScore = Math.floor(Math.random() * 30) + 10; // 10-40 risk score
-            const finalStatus = success ? 'verified' : 'rejected';
+            const finalStatus: KYCStatus = success ? 'verified' : 'rejected';
             
             const updatedKYCData = {
               ...kycData,

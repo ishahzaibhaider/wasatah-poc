@@ -5,8 +5,7 @@ import PersonalInfoForm from './PersonalInfoForm';
 import DocumentUploadForm from './DocumentUploadForm';
 import FaceLivenessCheck from './FaceLivenessCheck';
 import { Card, CardBody, CardHeader } from '../ui/Card';
-import { Button } from '../ui/Button';
-import { Badge } from '../ui/Badge';
+import { Button, Badge } from '../ui';
 import LoadingSpinner from '../LoadingSpinner';
 
 interface KYCFlowProps {
@@ -18,7 +17,7 @@ type KYCStep = 'personal-info' | 'documents' | 'liveness' | 'review' | 'submitti
 
 const KYCFlow = ({ onComplete, onCancel }: KYCFlowProps) => {
   const { user } = useAuthStore();
-  const { kycData, startKYC, submitKYC, isLoading } = useKYCStore();
+  const { kycData, startKYC, submitKYC } = useKYCStore();
   const [currentStep, setCurrentStep] = useState<KYCStep>('personal-info');
   const [progress, setProgress] = useState(25);
 
@@ -238,7 +237,7 @@ const KYCFlow = ({ onComplete, onCancel }: KYCFlowProps) => {
   const renderSubmitting = () => (
     <Card className="max-w-2xl mx-auto">
       <CardBody className="text-center py-12">
-        <LoadingSpinner size="large" />
+        <LoadingSpinner size="lg" />
         <h3 className="text-xl font-semibold text-gray-900 mt-6">Submitting Your KYC</h3>
         <p className="text-gray-600 mt-2">
           Please wait while we process your verification request...

@@ -1,9 +1,8 @@
 import { useState, useRef } from 'react';
 import { useKYCStore } from '../../stores/useKYCStore';
-import { KYCDocument } from '../../types/models';
+import type { KYCDocument } from '../../types/models';
 import { Card, CardBody, CardHeader } from '../ui/Card';
-import { Button } from '../ui/Button';
-import { Badge } from '../ui/Badge';
+import { Button, Badge } from '../ui';
 
 interface DocumentUploadFormProps {
   onNext: () => void;
@@ -146,7 +145,7 @@ const DocumentUploadForm = ({ onNext, onBack }: DocumentUploadFormProps) => {
 
                 <div className="flex items-center gap-4">
                   <input
-                    ref={(el) => (fileInputRefs.current[doc.type] = el)}
+                    ref={(el) => { fileInputRefs.current[doc.type] = el; }}
                     type="file"
                     accept={doc.acceptedTypes}
                     onChange={(e) => handleFileChange(doc.type, e)}

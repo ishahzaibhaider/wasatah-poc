@@ -5,7 +5,6 @@ import { createPseudoSignature } from '../utils/crypto';
 import { isReadonlyMode } from '../utils/api';
 import Notification from '../components/Notification';
 import { Card, CardBody } from '../components/ui/Card';
-import VerificationBadge from '../components/VerificationBadge';
 
 const BrokerPage = () => {
   const [showLinkModal, setShowLinkModal] = useState(false);
@@ -439,7 +438,11 @@ const BrokerPage = () => {
                   <option value="">Choose a buyer...</option>
                   {mockBuyers.map((buyer) => (
                     <option key={buyer.id} value={buyer.id}>
-                      {buyer.name} ({buyer.email}) - {buyer.kycStatus === 'verified' ? '✅ Verified' : buyer.kycStatus === 'pending_review' ? '⏳ Under Review' : '🔒 Not Verified'}
+                      {buyer.name} ({buyer.email}) - {
+                        buyer.kycStatus === 'verified' ? '✅ Verified' : 
+                        buyer.kycStatus === 'pending_review' ? '⏳ Under Review' : 
+                        '🔒 Not Verified'
+                      }
                     </option>
                   ))}
                 </select>
@@ -457,7 +460,11 @@ const BrokerPage = () => {
                   <option value="">Choose a seller...</option>
                   {mockSellers.map((seller) => (
                     <option key={seller.id} value={seller.id}>
-                      {seller.name} ({seller.email}) - {seller.kycStatus === 'verified' ? '✅ Verified' : seller.kycStatus === 'pending_review' ? '⏳ Under Review' : '🔒 Not Verified'}
+                      {seller.name} ({seller.email}) - {
+                        seller.kycStatus === 'verified' ? '✅ Verified' : 
+                        seller.kycStatus === 'pending_review' ? '⏳ Under Review' : 
+                        '🔒 Not Verified'
+                      }
                     </option>
                   ))}
                 </select>

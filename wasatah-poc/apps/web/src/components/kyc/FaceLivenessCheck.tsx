@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useKYCStore } from '../../stores/useKYCStore';
-import { KYCLivenessCheck } from '../../types/models';
+import type { KYCLivenessCheck } from '../../types/models';
 import { Card, CardBody, CardHeader } from '../ui/Card';
-import { Button } from '../ui/Button';
-import { Badge } from '../ui/Badge';
+import { Button, Badge } from '../ui';
 
 interface FaceLivenessCheckProps {
   onNext: () => void;
@@ -59,21 +58,6 @@ const FaceLivenessCheck = ({ onNext, onBack }: FaceLivenessCheckProps) => {
     }
   };
 
-  const captureFrame = () => {
-    if (videoRef.current && canvasRef.current) {
-      const canvas = canvasRef.current;
-      const video = videoRef.current;
-      const ctx = canvas.getContext('2d');
-      
-      if (ctx) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        ctx.drawImage(video, 0, 0);
-        return canvas.toDataURL('image/jpeg', 0.8);
-      }
-    }
-    return null;
-  };
 
   const simulateLivenessCheck = async () => {
     setCurrentStep('processing');

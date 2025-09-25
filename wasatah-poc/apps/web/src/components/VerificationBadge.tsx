@@ -1,5 +1,5 @@
-import { Badge } from './ui/Badge';
-import { KYCStatus } from '../types/models';
+import Badge from './ui/Badge';
+import type { KYCStatus } from '../types/models';
 
 interface VerificationBadgeProps {
   kycStatus?: KYCStatus;
