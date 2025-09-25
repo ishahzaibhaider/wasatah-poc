@@ -4,7 +4,6 @@ import { Card, CardBody } from '../components/ui/Card';
 import { useAuthStore } from '../stores/useAuthStore';
 import { useLedgerStore } from '../stores/useLedgerStore';
 import { useRoleStore } from '../stores/useRoleStore';
-import shortid from 'shortid';
 
 const SimpleLoginPage = () => {
   const location = useLocation();
@@ -22,9 +21,8 @@ const SimpleLoginPage = () => {
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
   const navigate = useNavigate();
-  const { login, register, setUser } = useAuthStore();
+  const { login, register } = useAuthStore();
   const { addEvent } = useLedgerStore();
-  const { selectRole } = useRoleStore();
 
   // Update mode based on URL
   useEffect(() => {
@@ -49,7 +47,7 @@ const SimpleLoginPage = () => {
         try {
           const currentUser = useAuthStore.getState().user;
           if (currentUser) {
-            await addEvent('USER_LOGIN', currentUser.id, currentUser.name, {
+            await addEvent('user_verified', currentUser.id, currentUser.name, {
               email: currentUser.email,
               role: currentUser.role
             });
@@ -82,7 +80,7 @@ const SimpleLoginPage = () => {
         try {
           const currentUser = useAuthStore.getState().user;
           if (currentUser) {
-            await addEvent('USER_SIGNUP', currentUser.id, currentUser.name, {
+            await addEvent('user_registered', currentUser.id, currentUser.name, {
               email: currentUser.email,
               role: currentUser.role,
               digitalId: currentUser.digitalId?.id

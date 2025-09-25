@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { User, LoginForm, DigitalID } from '../types/models';
+import type { User, LoginForm, DigitalID, Role } from '../types/models';
 import { apiClient } from '../utils/api';
 
 interface AuthState {
@@ -103,7 +103,7 @@ export const useAuthStore = create<AuthState>()(
             name: userData.name,
             email: userData.email,
             phone: userData.phone,
-            role: userData.role,
+            role: userData.role as Role,
             createdAt: new Date().toISOString(),
             isActive: true,
             digitalId: {

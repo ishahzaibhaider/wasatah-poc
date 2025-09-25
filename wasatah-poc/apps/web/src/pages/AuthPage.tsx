@@ -43,7 +43,7 @@ const AuthPage = () => {
   const [selectedRole, setSelectedRole] = useState<'buyer' | 'seller' | 'broker' | null>(null);
 
   const navigate = useNavigate();
-  const { login, register, setUser, isAuthenticated } = useAuthStore();
+  const { login, register } = useAuthStore();
   const { addEvent } = useLedgerStore();
   const { selectRole } = useRoleStore();
 
@@ -96,7 +96,7 @@ const AuthPage = () => {
 
       // Add signup event to ledger
       try {
-        await addEvent('USER_SIGNUP', newUser.id, newUser.name, {
+        await addEvent('user_registered', newUser.id, newUser.name, {
           email: newUser.email,
           role: newUser.role,
           digitalId: newUser.digitalId.id,
@@ -130,7 +130,7 @@ const AuthPage = () => {
       try {
         const currentUser = useAuthStore.getState().user;
         if (currentUser) {
-          await addEvent('USER_LOGIN', currentUser.id, currentUser.name, {
+          await addEvent('user_verified', currentUser.id, currentUser.name, {
             email: currentUser.email,
             role: currentUser.role,
             digitalId: currentUser.digitalId?.id
@@ -538,7 +538,7 @@ const AuthPage = () => {
                   disabled={!selectedRole}
                   className="btn btn-primary px-8 py-3"
                 >
-                  Continue as {selectedRole?.charAt(0).toUpperCase() + selectedRole?.slice(1)}
+                  Continue as {selectedRole ? selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1) : ''}
                 </button>
               </div>
             </CardBody>

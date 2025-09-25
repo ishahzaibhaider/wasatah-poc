@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const MONGODB_URI = 'mongodb+srv://shahzaibhaider161_db_user:S930thurUvTd2XzY@cluster0.exzelqa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://shahzaibhaider161_db_user:S930thurUvTd2XzY@cluster0.exzelqa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 const DB_NAME = 'wasatah';
 
 let client;
@@ -65,14 +65,16 @@ const createCollections = async () => {
   }
 };
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': 'https://prismatic-panda-fca344.netlify.app',
+const getCorsHeaders = (origin) => ({
+  'Access-Control-Allow-Origin': origin || 'https://prismatic-panda-fca344.netlify.app',
   'Access-Control-Allow-Headers': 'Content-Type',
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
   'Access-Control-Allow-Credentials': 'true'
-};
+});
 
 exports.handler = async (event, context) => {
+  const corsHeaders = getCorsHeaders(event.headers.origin);
+  
   // Handle CORS preflight
   if (event.httpMethod === 'OPTIONS') {
     return {
