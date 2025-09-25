@@ -13,6 +13,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
+    assetsDir: 'assets',
     rollupOptions: {
       external: [],
     },
@@ -20,5 +21,6 @@ export default defineConfig({
   server: {
     port: 5173,
     host: true
-  }
+  },
+  publicDir: 'public'
 })

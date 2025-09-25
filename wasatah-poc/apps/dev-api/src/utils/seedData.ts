@@ -108,7 +108,7 @@ export const seedDatabase = async (): Promise<void> => {
           verificationAuthority: 'Saudi Land Registry'
         }
       ],
-      images: ['https://drive.google.com/uc?export=download&id=10c5hOnSpKvIn3nCGaHGz5-vu0xwFHwqj', 'https://drive.google.com/uc?export=download&id=1NDGsGavAkeq3E1XYJ7QuiP6K3eqxkqak', 'https://drive.google.com/uc?export=download&id=1j-GVOE8aoADQKFv_qDCeenfsXNJBLYtT'],
+      images: ['/images/properties/luxury-villa-riyadh.jpg', '/images/properties/modern-apartment.jpg', '/images/properties/penthouse-dubai.jpg'],
       features: ['Swimming Pool', 'Private Garden', 'Smart Home System', '2-Car Garage'],
       createdAt: '2024-09-20T09:00:00Z',
       updatedAt: '2024-09-20T09:00:00Z'

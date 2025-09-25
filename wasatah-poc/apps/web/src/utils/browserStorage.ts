@@ -211,7 +211,7 @@ export const getStoredProperties = () => {
       bedrooms: 4,
       bathrooms: 3,
       area: 450,
-      images: ['https://drive.google.com/uc?export=download&id=10c5hOnSpKvIn3nCGaHGz5-vu0xwFHwqj', 'https://drive.google.com/uc?export=download&id=1NDGsGavAkeq3E1XYJ7QuiP6K3eqxkqak', 'https://drive.google.com/uc?export=download&id=1ckLWqrHsBxXj3LlAJ9xZxEL8zQpyfvf6', 'https://drive.google.com/uc?export=download&id=1j-GVOE8aoADQKFv_qDCeenfsXNJBLYtT'],
+      images: ['/images/properties/luxury-villa-riyadh.jpg', '/images/properties/modern-apartment.jpg', '/images/properties/townhouse-dammam.jpg', '/images/properties/penthouse-dubai.jpg'],
       ownerId: 'owner_001',
       ownerName: 'Ahmed Al-Rashid',
       verified: true,

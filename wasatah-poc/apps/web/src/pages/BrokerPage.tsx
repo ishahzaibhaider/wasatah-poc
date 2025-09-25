@@ -45,9 +45,9 @@ const BrokerPage = () => {
   ];
 
   const mockProperties = [
-    { id: 'prop_001', title: 'Luxury Villa - Riyadh', price: 2800000, image: 'https://drive.google.com/uc?export=download&id=10c5hOnSpKvIn3nCGaHGz5-vu0xwFHwqj' },
-    { id: 'prop_002', title: 'Modern Apartment - Jeddah', price: 1800000, image: 'https://drive.google.com/uc?export=download&id=1NDGsGavAkeq3E1XYJ7QuiP6K3eqxkqak' },
-    { id: 'prop_003', title: 'Townhouse - Dammam', price: 1200000, image: 'https://drive.google.com/uc?export=download&id=1ckLWqrHsBxXj3LlAJ9xZxEL8zQpyfvf6' }
+    { id: 'prop_001', title: 'Luxury Villa - Riyadh', price: 2800000, image: '/images/properties/luxury-villa-riyadh.jpg' },
+    { id: 'prop_002', title: 'Modern Apartment - Jeddah', price: 1800000, image: '/images/properties/modern-apartment.jpg' },
+    { id: 'prop_003', title: 'Townhouse - Dammam', price: 1200000, image: '/images/properties/townhouse-dammam.jpg' }
   ];
 
   const handleLinkBuyerSeller = async () => {
@@ -221,7 +221,7 @@ const BrokerPage = () => {
                 <div className="flex items-start space-x-4 mb-3">
                   <div className="h-16 w-16 rounded-lg overflow-hidden flex-shrink-0">
                     <img 
-                      src="https://drive.google.com/uc?export=download&id=10c5hOnSpKvIn3nCGaHGz5-vu0xwFHwqj" 
+                      src="/images/properties/luxury-villa-riyadh.jpg" 
                       alt="Luxury Villa - Riyadh" 
                       className="w-full h-full object-cover"
                     />
@@ -273,7 +273,7 @@ const BrokerPage = () => {
                 <div className="flex items-start space-x-4 mb-3">
                   <div className="h-16 w-16 rounded-lg overflow-hidden flex-shrink-0">
                     <img 
-                      src="https://drive.google.com/uc?export=download&id=1NDGsGavAkeq3E1XYJ7QuiP6K3eqxkqak" 
+                      src="/images/properties/modern-apartment.jpg" 
                       alt="Modern Apartment - Jeddah" 
                       className="w-full h-full object-cover"
                     />
@@ -331,7 +331,7 @@ const BrokerPage = () => {
                 <div className="flex items-start space-x-4 mb-4">
                   <div className="h-16 w-16 rounded-lg overflow-hidden flex-shrink-0">
                     <img 
-                      src="https://drive.google.com/uc?export=download&id=1NDGsGavAkeq3E1XYJ7QuiP6K3eqxkqak" 
+                      src="/images/properties/modern-apartment.jpg" 
                       alt="Modern Apartment - Jeddah" 
                       className="w-full h-full object-cover"
                     />

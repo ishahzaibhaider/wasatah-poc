@@ -46,13 +46,7 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Redirect images to the correct path
-[[redirects]]
-  from = "/images/*"
-  to = "/images/:splat"
-  status = 200
-
-# Redirect all other requests to the SPA
+# Redirect all other requests to the SPA (except static assets)
 [[redirects]]
   from = "/*"
   to = "/index.html"
