@@ -201,21 +201,44 @@ export const getStoredProperties = () => {
   return getStorageItem(STORAGE_KEYS.PROPERTIES, [
     {
       id: 'prop_001',
-      title: 'Luxury Villa in Riyadh',
+      title: 'Luxury Villa in Al-Nakheel District',
       description: 'Beautiful 4-bedroom villa with modern amenities',
-      price: 2500000,
+      address: 'Al-Nakheel District, Riyadh 12345',
+      price: 2800000,
+      currency: 'SAR',
+      status: 'available',
       location: 'Riyadh, Saudi Arabia',
       bedrooms: 4,
       bathrooms: 3,
-      area: 350,
-      images: ['/images/villa1.jpg'],
+      area: 450,
+      images: ['/images/villa1.jpg', '/images/villa2.jpg', '/images/villa3.jpg', '/images/villa4.jpg'],
       ownerId: 'owner_001',
       ownerName: 'Ahmed Al-Rashid',
       verified: true,
       deedVerified: true,
       ownershipHistory: [
-        { owner: 'Ahmed Al-Rashid', from: '2020-01-01', to: null },
-        { owner: 'Sara Al-Mansouri', from: '2018-06-15', to: '2019-12-31' }
+        { 
+          owner: 'Ahmed Al-Rashid', 
+          ownerName: 'Ahmed Al-Rashid',
+          from: '2020-01-01', 
+          fromDate: '2020-01-01',
+          to: null,
+          toDate: null,
+          transferType: 'purchase',
+          deedVerified: true,
+          verificationAuthority: 'Ministry of Justice'
+        },
+        { 
+          owner: 'Sara Al-Mansouri', 
+          ownerName: 'Sara Al-Mansouri',
+          from: '2018-06-15', 
+          fromDate: '2018-06-15',
+          to: '2019-12-31',
+          toDate: '2019-12-31',
+          transferType: 'purchase',
+          deedVerified: true,
+          verificationAuthority: 'Ministry of Justice'
+        }
       ]
     }
   ]);

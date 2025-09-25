@@ -83,7 +83,8 @@ const SellerPage = () => {
       const offer = propertyOffers.find(o => o.id === offerId);
       
       // Add ledger event for offer response
-      await addEvent(`offer_${action}ed`, user?.id || 'seller', user?.name || 'Property Seller', {
+      const eventType = action === 'accept' ? 'offer_accepted' : 'offer_rejected';
+      await addEvent(eventType, user?.id || 'seller', user?.name || 'Property Seller', {
         offerId: offerId,
         propertyId: property.id,
         buyerId: offer?.buyerId,
