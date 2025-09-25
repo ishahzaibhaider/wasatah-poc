@@ -209,7 +209,7 @@ const BrokerPage = () => {
               <h2 className="text-xl font-bold text-secondary-900">Active Connections</h2>
             </div>
             
-            <div className="space-y-4">
+          <div className="space-y-4">
               <div className="interactive-card p-4 group">
                 <div className="flex items-start space-x-4 mb-3">
                   <div className="h-16 w-16 rounded-lg overflow-hidden flex-shrink-0">
@@ -220,9 +220,9 @@ const BrokerPage = () => {
                     />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between mb-2">
                       <h3 className="text-base font-bold text-secondary-900">Luxury Villa - Riyadh</h3>
-                      <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2">
                         <span className="badge badge-success">Active</span>
                         <span className="badge badge-primary">🔐 ZKP Verified</span>
                       </div>
@@ -244,24 +244,24 @@ const BrokerPage = () => {
                     <span className="w-1.5 h-1.5 bg-accent-500 rounded-full mr-2"></span>
                     <span className="font-medium">Offer:</span>
                     <span className="ml-2 font-bold text-secondary-900">SAR 2,500,000</span>
-                  </div>
-                </div>
+              </div>
+              </div>
                 <div className="flex gap-2">
                   <button className="btn btn-outline btn-sm text-xs px-3 py-1">
-                    Facilitate Meeting
-                  </button>
-                  {!isReadonlyMode() && (
-                    <button 
-                      onClick={() => handleCompleteTransaction('conn_001', 'buyer_001', 'seller_001', 'prop_001', 2500000)}
+                  Facilitate Meeting
+                </button>
+                {!isReadonlyMode() && (
+                  <button 
+                    onClick={() => handleCompleteTransaction('conn_001', 'buyer_001', 'seller_001', 'prop_001', 2500000)}
                       className="btn btn-success btn-sm text-xs px-3 py-1"
-                    >
-                      Complete Transaction
-                    </button>
-                  )}
-                </div>
+                  >
+                    Complete Transaction
+                  </button>
+                )}
+              </div>
             </div>
             
-              {/* Success state example */}
+            {/* Success state example */}
               <div className="interactive-card p-4 bg-gradient-to-r from-success-50/50 to-success-100/50 border-success-200/50">
                 <div className="flex items-start space-x-4 mb-3">
                   <div className="h-16 w-16 rounded-lg overflow-hidden flex-shrink-0">
@@ -272,9 +272,9 @@ const BrokerPage = () => {
                     />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between mb-2">
                       <h3 className="text-base font-bold text-success-800">Modern Apartment - Jeddah</h3>
-                      <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2">
                         <span className="badge badge-success">Linked Successfully</span>
                         <span className="badge badge-primary">🔐 ZKP Verified</span>
                       </div>
@@ -349,10 +349,10 @@ const BrokerPage = () => {
                       </div>
                     </div>
                     <button className="btn btn-secondary btn-sm">
-                      Connect Buyers
-                    </button>
-                  </div>
-                </div>
+                  Connect Buyers
+                </button>
+              </div>
+            </div>
               </div>
               
               {/* Empty state for more properties */}
@@ -383,23 +383,23 @@ const BrokerPage = () => {
               </div>
               <div className="text-2xl font-black text-primary-600 mb-1">12</div>
               <div className="text-xs font-semibold text-secondary-600">Active Connections</div>
-            </div>
+          </div>
             
             <div className="text-center group">
               <div className="h-12 w-12 bg-gradient-to-br from-success-500 to-success-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-glow transition-all duration-300">
                 <span className="text-lg text-white">✅</span>
-              </div>
+          </div>
               <div className="text-2xl font-black text-success-600 mb-1">8</div>
               <div className="text-xs font-semibold text-secondary-600">Completed Deals</div>
-            </div>
+          </div>
             
             <div className="text-center group">
               <div className="h-12 w-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-glow transition-all duration-300">
                 <span className="text-lg text-white">💰</span>
-              </div>
+        </div>
               <div className="text-2xl font-black text-accent-600 mb-1">SAR 45M</div>
               <div className="text-xs font-semibold text-secondary-600">Total Volume</div>
-            </div>
+      </div>
             
             <div className="text-center group">
               <div className="h-12 w-12 bg-gradient-to-br from-luxury-500 to-luxury-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-glow transition-all duration-300">
@@ -426,87 +426,87 @@ const BrokerPage = () => {
               </div>
             
               <div className="space-y-6">
-                <div>
+              <div>
                   <label className="form-label">
-                    Select Buyer
-                  </label>
-                  <select
-                    value={selectedBuyer}
-                    onChange={(e) => setSelectedBuyer(e.target.value)}
+                  Select Buyer
+                </label>
+                <select
+                  value={selectedBuyer}
+                  onChange={(e) => setSelectedBuyer(e.target.value)}
                     className="form-input"
-                  >
-                    <option value="">Choose a buyer...</option>
-                    {mockBuyers.map((buyer) => (
-                      <option key={buyer.id} value={buyer.id}>
-                        {buyer.name} ({buyer.email})
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="form-label">
-                    Select Seller
-                  </label>
-                  <select
-                    value={selectedSeller}
-                    onChange={(e) => setSelectedSeller(e.target.value)}
-                    className="form-input"
-                  >
-                    <option value="">Choose a seller...</option>
-                    {mockSellers.map((seller) => (
-                      <option key={seller.id} value={seller.id}>
-                        {seller.name} ({seller.email})
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="form-label">
-                    Select Property
-                  </label>
-                  <select
-                    value={selectedProperty}
-                    onChange={(e) => setSelectedProperty(e.target.value)}
-                    className="form-input"
-                  >
-                    <option value="">Choose a property...</option>
-                    {mockProperties.map((property) => (
-                      <option key={property.id} value={property.id}>
-                        {property.title} - SAR {property.price.toLocaleString()}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                >
+                  <option value="">Choose a buyer...</option>
+                  {mockBuyers.map((buyer) => (
+                    <option key={buyer.id} value={buyer.id}>
+                      {buyer.name} ({buyer.email})
+                    </option>
+                  ))}
+                </select>
               </div>
+
+              <div>
+                  <label className="form-label">
+                  Select Seller
+                </label>
+                <select
+                  value={selectedSeller}
+                  onChange={(e) => setSelectedSeller(e.target.value)}
+                    className="form-input"
+                >
+                  <option value="">Choose a seller...</option>
+                  {mockSellers.map((seller) => (
+                    <option key={seller.id} value={seller.id}>
+                      {seller.name} ({seller.email})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                  <label className="form-label">
+                  Select Property
+                </label>
+                <select
+                  value={selectedProperty}
+                  onChange={(e) => setSelectedProperty(e.target.value)}
+                    className="form-input"
+                >
+                  <option value="">Choose a property...</option>
+                  {mockProperties.map((property) => (
+                    <option key={property.id} value={property.id}>
+                      {property.title} - SAR {property.price.toLocaleString()}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
 
               <div className="flex gap-4 mt-8">
-                <button
-                  onClick={() => setShowLinkModal(false)}
+              <button
+                onClick={() => setShowLinkModal(false)}
                   className="btn btn-ghost flex-1"
-                  disabled={isLinking}
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleLinkBuyerSeller}
-                  disabled={isLinking || !selectedBuyer || !selectedSeller || !selectedProperty}
+                disabled={isLinking}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleLinkBuyerSeller}
+                disabled={isLinking || !selectedBuyer || !selectedSeller || !selectedProperty}
                   className="btn btn-primary flex-1"
-                >
-                  {isLinking ? (
-                    <>
+              >
+                {isLinking ? (
+                  <>
                       <div className="loading-spinner h-4 w-4 mr-2"></div>
-                      <span>Linking...</span>
-                    </>
-                  ) : (
-                    <>
+                    <span>Linking...</span>
+                  </>
+                ) : (
+                  <>
                       <span className="mr-2">🔗</span>
-                      <span>Link & Create Event</span>
-                    </>
-                  )}
-                </button>
-              </div>
+                    <span>Link & Create Event</span>
+                  </>
+                )}
+              </button>
+            </div>
             </CardBody>
           </Card>
         </div>
