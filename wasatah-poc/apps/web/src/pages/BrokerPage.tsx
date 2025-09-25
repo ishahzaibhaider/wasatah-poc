@@ -38,9 +38,9 @@ const BrokerPage = () => {
   ];
 
   const mockProperties = [
-    { id: 'prop_001', title: 'Luxury Villa - Riyadh', price: 2800000, image: '/images/properties/luxury-villa-riyadh.jpg' },
-    { id: 'prop_002', title: 'Modern Apartment - Jeddah', price: 1800000, image: '/images/properties/modern-apartment.jpg' },
-    { id: 'prop_003', title: 'Townhouse - Dammam', price: 1200000, image: '/images/properties/townhouse-dammam.jpg' }
+    { id: 'prop_001', title: 'Luxury Villa - Riyadh', price: 2800000, image: './images/properties/luxury-villa-riyadh.jpg' },
+    { id: 'prop_002', title: 'Modern Apartment - Jeddah', price: 1800000, image: './images/properties/modern-apartment.jpg' },
+    { id: 'prop_003', title: 'Townhouse - Dammam', price: 1200000, image: './images/properties/townhouse-dammam.jpg' }
   ];
 
   const handleLinkBuyerSeller = async () => {
