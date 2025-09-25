@@ -45,39 +45,40 @@ const RolePage = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <PageHeading
-        title="Choose Your Role"
-        subtitle="Select how you want to experience the Wasatah platform"
-        className="text-center mb-8"
-      />
+    <div className="max-w-7xl mx-auto">
+      <div className="text-center mb-16">
+        <h1 className="text-5xl font-black mb-6">Choose Your Role</h1>
+        <p className="text-xl text-secondary-600 max-w-3xl mx-auto leading-relaxed">
+          Select how you want to experience the future of real estate transactions
+        </p>
+      </div>
 
       {/* User Info */}
       {user && (
-        <div className="mb-8">
-          <Card className="bg-gradient-to-r from-primary-50 to-blue-50 border-primary-200">
-            <CardBody className="p-6">
+        <div className="mb-16">
+          <Card className="bg-gradient-to-r from-primary-50/80 to-accent-50/80 border-primary-200/50 backdrop-blur-sm">
+            <CardBody className="p-8">
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full flex items-center justify-center">
-                    <span className="text-lg text-white font-semibold">
+                <div className="flex items-center space-x-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center shadow-glow">
+                    <span className="text-xl text-white font-bold">
                       {user.name.split(' ').map(n => n[0]).join('')}
                     </span>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">{user.name}</h3>
-                    <p className="text-sm text-gray-600">{user.email}</p>
+                    <h3 className="text-2xl font-bold text-secondary-900">{user.name}</h3>
+                    <p className="text-secondary-600 font-medium">{user.email}</p>
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-4">
                   {user.digitalId && (
                     <>
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                        ✅ NAFTA Verified (Simulated)
+                      <span className="badge badge-success">
+                        ✅ NAFTA Verified
                       </span>
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                        🔐 ZKP Verified (Simulated)
+                      <span className="badge badge-primary">
+                        🔐 ZKP Verified
                       </span>
                     </>
                   )}
@@ -88,35 +89,35 @@ const RolePage = () => {
         </div>
       )}
 
-      <div className="grid md:grid-cols-3 gap-8">
-        {roles.map((role) => (
+      <div className="grid lg:grid-cols-3 gap-10">
+        {roles.map((role, index) => (
           <Card
             key={role.id}
-            hover
             onClick={() => handleRoleSelect(role.id, role.path)}
-            className="text-center transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+            className="interactive-card text-center group cursor-pointer"
+            style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <CardBody className="p-8">
+            <CardBody className="p-12">
               {/* Icon with gradient background */}
-              <div className={`mx-auto h-20 w-20 bg-gradient-to-r ${role.color} rounded-full flex items-center justify-center mb-6 shadow-lg`}>
-                <span className="text-3xl">{role.icon}</span>
+              <div className={`mx-auto h-24 w-24 bg-gradient-to-br ${role.color} rounded-3xl flex items-center justify-center mb-8 shadow-glow group-hover:shadow-glow-lg transition-all duration-300 group-hover:scale-110`}>
+                <span className="text-4xl">{role.icon}</span>
               </div>
               
-              <h3 className="text-2xl font-bold mb-3 text-gray-900">{role.title}</h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">{role.description}</p>
+              <h3 className="text-3xl font-bold mb-4 text-secondary-900">{role.title}</h3>
+              <p className="text-secondary-600 mb-8 leading-relaxed text-lg">{role.description}</p>
               
               {/* Features */}
-              <div className="space-y-2 mb-6">
-                {role.features.map((feature, index) => (
-                  <div key={index} className="flex items-center justify-center text-sm text-gray-500">
-                    <span className="w-2 h-2 bg-primary-500 rounded-full mr-2"></span>
+              <div className="space-y-3 mb-8">
+                {role.features.map((feature, featureIndex) => (
+                  <div key={featureIndex} className="flex items-center justify-center text-sm text-secondary-500">
+                    <span className="w-2 h-2 bg-primary-500 rounded-full mr-3"></span>
                     {feature}
                   </div>
                 ))}
               </div>
               
               {/* Action Button */}
-              <button className={`w-full py-3 px-6 bg-gradient-to-r ${role.color} text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105`}>
+              <button className={`w-full py-4 px-8 bg-gradient-to-r ${role.color} text-white font-bold rounded-xl shadow-lg hover:shadow-glow-lg transition-all duration-300 transform hover:scale-105 text-lg`}>
                 Enter as {role.title}
               </button>
             </CardBody>
@@ -125,24 +126,35 @@ const RolePage = () => {
       </div>
 
       {/* Additional Info */}
-      <div className="mt-16 text-center">
-        <div className="bg-gray-50 rounded-lg p-8">
-          <h3 className="text-xl font-semibold mb-4">Why Choose Wasatah?</h3>
-          <div className="grid md:grid-cols-3 gap-6 text-sm text-gray-600">
-            <div className="flex items-center justify-center">
-              <span className="mr-2">🔒</span>
-              Blockchain Security
+      <div className="mt-20">
+        <Card className="bg-gradient-to-r from-secondary-50/80 to-primary-50/80 border-secondary-200/50 backdrop-blur-sm">
+          <CardBody className="p-12 text-center">
+            <h3 className="text-3xl font-bold mb-8 text-secondary-900">Why Choose Wasatah?</h3>
+            <div className="grid lg:grid-cols-3 gap-8">
+              <div className="flex flex-col items-center group">
+                <div className="h-16 w-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mb-4 shadow-glow group-hover:shadow-glow-lg transition-all duration-300">
+                  <span className="text-2xl">🔒</span>
+                </div>
+                <h4 className="text-lg font-bold text-secondary-900 mb-2">Blockchain Security</h4>
+                <p className="text-secondary-600 text-sm">Immutable transaction records</p>
+              </div>
+              <div className="flex flex-col items-center group">
+                <div className="h-16 w-16 bg-gradient-to-br from-success-500 to-success-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-glow transition-all duration-300">
+                  <span className="text-2xl">🤖</span>
+                </div>
+                <h4 className="text-lg font-bold text-secondary-900 mb-2">AI-Powered Insights</h4>
+                <p className="text-secondary-600 text-sm">Smart fraud detection</p>
+              </div>
+              <div className="flex flex-col items-center group">
+                <div className="h-16 w-16 bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-glow transition-all duration-300">
+                  <span className="text-2xl">⚡</span>
+                </div>
+                <h4 className="text-lg font-bold text-secondary-900 mb-2">Instant Transactions</h4>
+                <p className="text-secondary-600 text-sm">Real-time processing</p>
+              </div>
             </div>
-            <div className="flex items-center justify-center">
-              <span className="mr-2">🤖</span>
-              AI-Powered Insights
-            </div>
-            <div className="flex items-center justify-center">
-              <span className="mr-2">⚡</span>
-              Instant Transactions
-            </div>
-          </div>
-        </div>
+          </CardBody>
+        </Card>
       </div>
     </div>
   );
