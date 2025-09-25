@@ -22,7 +22,6 @@ const BuyerPage = () => {
   
   const { 
     createOffer, 
-    updateOfferStatus,
     getOffersByBuyer, 
     loadOffers
   } = useOfferStore();
