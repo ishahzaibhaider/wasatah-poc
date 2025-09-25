@@ -11,7 +11,7 @@
 - Single curated property
 - Simplified transaction flow
 - Alert-style impersonation detection
-- ZKP is a visual simulation
+- ZKP is a visual simulation.
 
 ## Implementation Tasks (18 Phases)
 
