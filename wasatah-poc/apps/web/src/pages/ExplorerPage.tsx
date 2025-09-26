@@ -88,17 +88,17 @@ const ExplorerPage = () => {
 
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Blockchain Explorer</h1>
-        <p className="text-gray-600">View all transactions and verifications on the Wasatah network</p>
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Blockchain Explorer</h1>
+        <p className="text-gray-600 text-sm sm:text-base">View all transactions and verifications on the Wasatah network</p>
       </div>
 
       {/* Filter Chips */}
       <div className="mb-6">
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 sm:gap-3">
           <button
             onClick={() => setSelectedFilter('all')}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            className={`px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium transition-colors min-h-[40px] ${
               selectedFilter === 'all'
                 ? 'bg-primary-600 text-white'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -110,7 +110,7 @@ const ExplorerPage = () => {
             <button
               key={type}
               onClick={() => setSelectedFilter(type)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              className={`px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium transition-colors min-h-[40px] ${
                 selectedFilter === type
                   ? 'bg-primary-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -138,19 +138,19 @@ const ExplorerPage = () => {
         ) : (
           filteredEvents.map((event) => (
             <Card key={event.id} className="hover:shadow-lg transition-shadow">
-              <CardBody className="p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center space-x-3">
+              <CardBody className="p-4 sm:p-6">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
                     <Badge className={getTypeColor(event.type)}>
                       {formatEventType(event.type)}
                     </Badge>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-xs sm:text-sm text-gray-500">
                       {new Date(event.timestamp).toLocaleString()}
                     </span>
                   </div>
                   <button
                     onClick={() => copyToClipboard(event)}
-                    className="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
+                    className="px-3 py-2 text-xs bg-gray-100 hover:bg-gray-200 rounded-md transition-colors self-start sm:self-auto"
                   >
                     {copiedId === event.id ? '✓ Copied' : 'Copy JSON'}
                   </button>
@@ -166,16 +166,22 @@ const ExplorerPage = () => {
                 </div>
 
                 {/* Metadata Table */}
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-gray-50 rounded-lg p-3 sm:p-4">
                   <h4 className="text-sm font-semibold text-gray-700 mb-3">Event Details</h4>
-                  <div className="grid md:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {Object.entries(event.details).map(([key, value]) => (
                       <div key={key} className="text-sm">
                         <span className="font-medium text-gray-700 capitalize">
                           {key.replace(/([A-Z])/g, ' $1').trim()}:
                         </span>
-                        <div className="text-gray-600 mt-1 break-words">
-                          {typeof value === 'object' ? JSON.stringify(value) : String(value)}
+                        <div className="text-gray-600 mt-1 break-words overflow-hidden">
+                          {typeof value === 'object' ? (
+                            <pre className="whitespace-pre-wrap text-xs bg-white p-2 rounded border max-h-32 overflow-y-auto">
+                              {JSON.stringify(value, null, 2)}
+                            </pre>
+                          ) : (
+                            <span className="break-all">{String(value)}</span>
+                          )}
                         </div>
                       </div>
                     ))}
@@ -197,35 +203,35 @@ const ExplorerPage = () => {
       </div>
 
       {/* Network Stats */}
-      <div className="mt-8 grid md:grid-cols-4 gap-4">
+      <div className="mt-6 sm:mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         <Card>
-          <CardBody className="text-center p-6">
-            <div className="text-2xl font-bold text-primary-600">{events.length}</div>
-            <div className="text-sm text-gray-600">Total Events</div>
+          <CardBody className="text-center p-4 sm:p-6">
+            <div className="text-xl sm:text-2xl font-bold text-primary-600">{events.length}</div>
+            <div className="text-xs sm:text-sm text-gray-600">Total Events</div>
           </CardBody>
         </Card>
         <Card>
-          <CardBody className="text-center p-6">
-            <div className="text-2xl font-bold text-green-600">
+          <CardBody className="text-center p-4 sm:p-6">
+            <div className="text-xl sm:text-2xl font-bold text-green-600">
               {events.filter(e => e.type.includes('verification')).length}
             </div>
-            <div className="text-sm text-gray-600">Verifications</div>
+            <div className="text-xs sm:text-sm text-gray-600">Verifications</div>
           </CardBody>
         </Card>
         <Card>
-          <CardBody className="text-center p-6">
-            <div className="text-2xl font-bold text-blue-600">
+          <CardBody className="text-center p-4 sm:p-6">
+            <div className="text-xl sm:text-2xl font-bold text-blue-600">
               {events.filter(e => e.type.includes('offer')).length}
             </div>
-            <div className="text-sm text-gray-600">Offers</div>
+            <div className="text-xs sm:text-sm text-gray-600">Offers</div>
           </CardBody>
         </Card>
         <Card>
-          <CardBody className="text-center p-6">
-            <div className="text-2xl font-bold text-purple-600">
+          <CardBody className="text-center p-4 sm:p-6">
+            <div className="text-xl sm:text-2xl font-bold text-purple-600">
               {events.filter(e => e.type.includes('transaction') || e.type.includes('transfer')).length}
             </div>
-            <div className="text-sm text-gray-600">Transactions</div>
+            <div className="text-xs sm:text-sm text-gray-600">Transactions</div>
           </CardBody>
         </Card>
       </div>

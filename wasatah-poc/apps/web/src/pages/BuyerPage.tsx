@@ -147,9 +147,9 @@ const BuyerPage = () => {
     <div className="max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Buyer Dashboard</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Buyer Dashboard</h1>
             <p className="text-gray-600">Browse verified properties and make offers</p>
           </div>
           <div className="flex items-center gap-3">
@@ -166,7 +166,7 @@ const BuyerPage = () => {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Property Details */}
         <div className="lg:col-span-2">
           <Card className="mb-8">
@@ -177,7 +177,7 @@ const BuyerPage = () => {
                   <p className="text-gray-600 mb-4">{property.address}</p>
                   
                   {/* Verification Badges */}
-                  <div className="flex items-center space-x-3 mb-4">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4">
                     <Badge variant="success">
                       ✅ Deed Verified
                     </Badge>
@@ -185,7 +185,7 @@ const BuyerPage = () => {
                       🔐 ZKP Verified
                     </Badge>
                     <Badge variant="success">
-                      🛡️ Low Risk ({property.riskScore}%)
+                      🛡️ Low Risk (15%)
                     </Badge>
                   </div>
                 </div>
@@ -199,7 +199,7 @@ const BuyerPage = () => {
               </div>
 
               {/* Property Images */}
-              <div className="grid grid-cols-3 gap-4 mb-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
                 {property.images.map((image, index) => (
                   <div key={index} className="aspect-video rounded-lg overflow-hidden">
                     <img 
@@ -212,7 +212,7 @@ const BuyerPage = () => {
               </div>
 
               {/* Property Details */}
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6">
                 <div>
                   <h3 className="text-lg font-semibold mb-3">Property Information</h3>
                   <div className="space-y-2 text-sm">

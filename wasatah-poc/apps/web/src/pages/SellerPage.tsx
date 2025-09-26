@@ -217,12 +217,12 @@ const SellerPage = () => {
     <div className="max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Seller Dashboard</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Seller Dashboard</h1>
             <p className="text-gray-600">Manage your property listings and track offers</p>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
             {isUserVerified ? (
               <Badge variant="success" className="text-sm">
                 🏆 Verified User

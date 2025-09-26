@@ -248,8 +248,8 @@ const BrokerPage = () => {
       {/* Header Section */}
       <div className="mb-8">
         <div className="text-center mb-6">
-          <h1 className="text-3xl font-black mb-3">Broker Dashboard</h1>
-          <p className="text-lg text-secondary-600 max-w-2xl mx-auto leading-relaxed">
+          <h1 className="text-2xl sm:text-3xl font-black mb-3">Broker Dashboard</h1>
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Connect buyers and sellers in the Wasatah network with AI-powered security
           </p>
           <div className="flex justify-center mt-4">
