@@ -40,7 +40,7 @@ const KYCPage = () => {
   }, [isAuthenticated, navigate]);
 
   const handleKYCComplete = () => {
-    // Navigate to role selection or dashboard
+    // Navigate to role selection after successful KYC completion
     navigate('/role');
   };
 
@@ -76,10 +76,10 @@ const KYCPage = () => {
           <Card>
             <CardHeader className="text-center">
               <h1 className="text-3xl font-bold text-gray-900 mb-4">
-                Identity Verification (KYC)
+                Welcome! Let's Verify Your Identity
               </h1>
               <p className="text-lg text-gray-600">
-                Complete your identity verification to access all platform features
+                Complete your identity verification to access all platform features and start your real estate journey
               </p>
             </CardHeader>
             <CardBody>

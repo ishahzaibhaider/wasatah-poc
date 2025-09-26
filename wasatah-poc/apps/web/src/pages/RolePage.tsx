@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Card, CardBody } from '../components/ui/Card';
 import { useRoleStore } from '../stores/useRoleStore';
 import { useAuthStore } from '../stores/useAuthStore';
@@ -8,6 +9,13 @@ const RolePage = () => {
   const navigate = useNavigate();
   const { selectRole } = useRoleStore();
   const { user } = useAuthStore();
+
+  // Redirect to KYC if user is not verified
+  useEffect(() => {
+    if (user && user.kycStatus !== 'verified') {
+      navigate('/kyc');
+    }
+  }, [user, navigate]);
 
   const roles = [
     {
@@ -40,6 +48,12 @@ const RolePage = () => {
   ];
 
   const handleRoleSelect = (roleId: string, path: string) => {
+    // Check if user is verified before allowing role selection
+    if (user?.kycStatus !== 'verified') {
+      navigate('/kyc');
+      return;
+    }
+    
     selectRole(roleId as 'buyer' | 'seller' | 'broker');
     navigate(path);
   };

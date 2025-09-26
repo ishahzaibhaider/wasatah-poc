@@ -90,8 +90,13 @@ const SimpleLoginPage = () => {
         }
       }
 
-      // Navigate to role selection
-      navigate('/role');
+      // Navigate to KYC for new users, role selection for existing users
+      if (isLogin) {
+        navigate('/role');
+      } else {
+        // New users must complete KYC first
+        navigate('/kyc');
+      }
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Authentication failed');
     } finally {
