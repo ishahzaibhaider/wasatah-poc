@@ -11,6 +11,28 @@ const KYCPage = () => {
   const { user, isAuthenticated } = useAuthStore();
   const { kycData, clearKYC } = useKYCStore();
 
+  // Helper function to get badge variant based on KYC status
+  const getBadgeVariant = (status?: string) => {
+    switch (status) {
+      case 'verified': return 'success';
+      case 'pending_review': return 'warning';
+      case 'in_progress': return 'primary';
+      case 'rejected': return 'danger';
+      default: return 'secondary';
+    }
+  };
+
+  // Helper function to get badge text based on KYC status
+  const getBadgeText = (status?: string) => {
+    switch (status) {
+      case 'verified': return '✅ Verified';
+      case 'pending_review': return '⏳ Under Review';
+      case 'in_progress': return '🔄 In Progress';
+      case 'rejected': return '❌ Rejected';
+      default: return '🔒 Not Verified';
+    }
+  };
+
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/login');
@@ -159,18 +181,8 @@ const KYCPage = () => {
                       <p className="text-gray-600 text-sm">Role: {user?.role}</p>
                     </div>
                     <div className="text-right">
-                      <Badge 
-                        variant={
-                          user?.kycStatus === 'verified' ? 'success' :
-                          user?.kycStatus === 'pending_review' ? 'warning' :
-                          user?.kycStatus === 'in_progress' ? 'primary' :
-                          user?.kycStatus === 'rejected' ? 'danger' : 'secondary'
-                        }
-                      >
-                        {user?.kycStatus === 'verified' ? '✅ Verified' :
-                         user?.kycStatus === 'pending_review' ? '⏳ Under Review' :
-                         user?.kycStatus === 'in_progress' ? '🔄 In Progress' :
-                         user?.kycStatus === 'rejected' ? '❌ Rejected' : '🔒 Not Verified'}
+                      <Badge variant={getBadgeVariant(user?.kycStatus)}>
+                        {getBadgeText(user?.kycStatus)}
                       </Badge>
                     </div>
                   </div>

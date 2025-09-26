@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Card, CardBody, CardHeader } from '../ui/Card';
 import { Button } from '../ui';
-import LoadingSpinner from '../LoadingSpinner';
 
 interface FaceVerificationProps {
   onSuccess: () => void;
@@ -89,7 +88,6 @@ const FaceVerification = ({
     // Simulate success/failure with different rates based on verification type
     const successRate = isQuickCheck ? 0.95 : 0.8; // 95% for quick checks, 80% for full KYC
     const success = Math.random() > (1 - successRate);
-    const confidence = success ? Math.floor(Math.random() * 15) + 85 : Math.floor(Math.random() * 40) + 30;
     
     const newAttempts = attempts + 1;
     setAttempts(newAttempts);

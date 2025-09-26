@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useLedgerStore } from '../stores/useLedgerStore';
 import { useSecurityStore } from '../stores/useSecurityStore';
-import { useAuthStore } from '../stores/useAuthStore';
 import { useFaceVerification } from '../hooks/useFaceVerification';
 import FaceVerification from '../components/kyc/FaceVerification';
 import { createPseudoSignature } from '../utils/crypto';
@@ -28,7 +27,6 @@ const BrokerPage = () => {
 
   const { addEvent } = useLedgerStore();
   const { evaluateImpersonation } = useSecurityStore();
-  const { user } = useAuthStore();
   const {
     showVerification,
     startVerification,
