@@ -119,26 +119,26 @@ const RolePage = () => {
         </div>
       )}
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {roles.map((role) => (
           <Card
             key={role.id}
             onClick={() => handleRoleSelect(role.id, role.path)}
             className="interactive-card text-center group cursor-pointer animate-fade-in"
           >
-            <CardBody className="p-8">
+            <CardBody className="p-6 sm:p-8">
               {/* Icon with gradient background */}
               <div className={`mx-auto h-16 w-16 bg-gradient-to-br ${role.color} rounded-xl flex items-center justify-center mb-6 shadow-glow group-hover:shadow-glow-lg transition-all duration-300 group-hover:scale-110`}>
                 <span className="text-2xl">{role.icon}</span>
               </div>
               
-              <h3 className="text-2xl font-bold mb-3 text-secondary-900">{role.title}</h3>
-              <p className="text-secondary-600 mb-6 leading-relaxed text-sm">{role.description}</p>
+              <h3 className="text-xl sm:text-2xl font-bold mb-3 text-gray-900">{role.title}</h3>
+              <p className="text-gray-600 mb-6 leading-relaxed text-sm">{role.description}</p>
               
               {/* Features */}
               <div className="space-y-2 mb-6">
                 {role.features.map((feature, featureIndex) => (
-                  <div key={featureIndex} className="flex items-center justify-center text-xs text-secondary-500">
+                  <div key={featureIndex} className="flex items-center justify-center text-xs text-gray-500">
                     <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mr-2"></span>
                     {feature}
                   </div>

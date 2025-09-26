@@ -111,14 +111,14 @@ const SimpleLoginPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-blue-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl w-full space-y-8">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-2xl w-full space-y-6 sm:space-y-8">
         {/* Header */}
         <div className="text-center">
-          <div className="mx-auto h-16 w-16 bg-primary-600 rounded-full flex items-center justify-center">
-            <span className="text-2xl">🏠</span>
+          <div className="mx-auto h-12 w-12 sm:h-16 sm:w-16 bg-primary-600 rounded-full flex items-center justify-center">
+            <span className="text-xl sm:text-2xl">🏠</span>
           </div>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">
+          <h2 className="mt-4 sm:mt-6 text-2xl sm:text-3xl font-bold text-gray-900">
             Welcome to Wasatah
           </h2>
           <p className="mt-2 text-sm text-gray-600">
@@ -260,7 +260,7 @@ const SimpleLoginPage = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     I want to be a:
                   </label>
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {roles.map((roleOption) => (
                       <button
                         key={roleOption.id}

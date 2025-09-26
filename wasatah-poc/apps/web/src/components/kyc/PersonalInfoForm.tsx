@@ -98,7 +98,7 @@ const PersonalInfoForm = ({ onNext, onBack }: PersonalInfoFormProps) => {
       <CardBody>
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name Fields */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 First Name *
@@ -108,12 +108,12 @@ const PersonalInfoForm = ({ onNext, onBack }: PersonalInfoFormProps) => {
                 value={formData.firstName}
                 onChange={(e) => handleInputChange('firstName', e.target.value)}
                 className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
-                  errors.firstName ? 'border-red-500' : 'border-gray-300'
+                  errors.firstName ? 'border-gray-400' : 'border-gray-300'
                 }`}
                 placeholder="Enter your first name"
               />
               {errors.firstName && (
-                <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>
+                <p className="text-gray-600 text-sm mt-1">{errors.firstName}</p>
               )}
             </div>
             <div>
@@ -125,18 +125,18 @@ const PersonalInfoForm = ({ onNext, onBack }: PersonalInfoFormProps) => {
                 value={formData.lastName}
                 onChange={(e) => handleInputChange('lastName', e.target.value)}
                 className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
-                  errors.lastName ? 'border-red-500' : 'border-gray-300'
+                  errors.lastName ? 'border-gray-400' : 'border-gray-300'
                 }`}
                 placeholder="Enter your last name"
               />
               {errors.lastName && (
-                <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>
+                <p className="text-gray-600 text-sm mt-1">{errors.lastName}</p>
               )}
             </div>
           </div>
 
           {/* Date of Birth and Nationality */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Date of Birth *
@@ -146,11 +146,11 @@ const PersonalInfoForm = ({ onNext, onBack }: PersonalInfoFormProps) => {
                 value={formData.dateOfBirth}
                 onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
                 className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
-                  errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'
+                  errors.dateOfBirth ? 'border-gray-400' : 'border-gray-300'
                 }`}
               />
               {errors.dateOfBirth && (
-                <p className="text-red-500 text-sm mt-1">{errors.dateOfBirth}</p>
+                <p className="text-gray-600 text-sm mt-1">{errors.dateOfBirth}</p>
               )}
             </div>
             <div>
@@ -162,12 +162,12 @@ const PersonalInfoForm = ({ onNext, onBack }: PersonalInfoFormProps) => {
                 value={formData.nationality}
                 onChange={(e) => handleInputChange('nationality', e.target.value)}
                 className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
-                  errors.nationality ? 'border-red-500' : 'border-gray-300'
+                  errors.nationality ? 'border-gray-400' : 'border-gray-300'
                 }`}
                 placeholder="e.g., Saudi Arabian"
               />
               {errors.nationality && (
-                <p className="text-red-500 text-sm mt-1">{errors.nationality}</p>
+                <p className="text-gray-600 text-sm mt-1">{errors.nationality}</p>
               )}
             </div>
           </div>
@@ -185,12 +185,12 @@ const PersonalInfoForm = ({ onNext, onBack }: PersonalInfoFormProps) => {
                 value={formData.address.street}
                 onChange={(e) => handleInputChange('address.street', e.target.value)}
                 className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
-                  errors.street ? 'border-red-500' : 'border-gray-300'
+                  errors.street ? 'border-gray-400' : 'border-gray-300'
                 }`}
                 placeholder="Enter your street address"
               />
               {errors.street && (
-                <p className="text-red-500 text-sm mt-1">{errors.street}</p>
+                <p className="text-gray-600 text-sm mt-1">{errors.street}</p>
               )}
             </div>
 
@@ -204,12 +204,12 @@ const PersonalInfoForm = ({ onNext, onBack }: PersonalInfoFormProps) => {
                   value={formData.address.city}
                   onChange={(e) => handleInputChange('address.city', e.target.value)}
                   className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
-                    errors.city ? 'border-red-500' : 'border-gray-300'
+                    errors.city ? 'border-gray-400' : 'border-gray-300'
                   }`}
                   placeholder="City"
                 />
                 {errors.city && (
-                  <p className="text-red-500 text-sm mt-1">{errors.city}</p>
+                  <p className="text-gray-600 text-sm mt-1">{errors.city}</p>
                 )}
               </div>
               <div>
@@ -221,12 +221,12 @@ const PersonalInfoForm = ({ onNext, onBack }: PersonalInfoFormProps) => {
                   value={formData.address.state}
                   onChange={(e) => handleInputChange('address.state', e.target.value)}
                   className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
-                    errors.state ? 'border-red-500' : 'border-gray-300'
+                    errors.state ? 'border-gray-400' : 'border-gray-300'
                   }`}
                   placeholder="State/Province"
                 />
                 {errors.state && (
-                  <p className="text-red-500 text-sm mt-1">{errors.state}</p>
+                  <p className="text-gray-600 text-sm mt-1">{errors.state}</p>
                 )}
               </div>
               <div>
@@ -238,12 +238,12 @@ const PersonalInfoForm = ({ onNext, onBack }: PersonalInfoFormProps) => {
                   value={formData.address.postalCode}
                   onChange={(e) => handleInputChange('address.postalCode', e.target.value)}
                   className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
-                    errors.postalCode ? 'border-red-500' : 'border-gray-300'
+                    errors.postalCode ? 'border-gray-400' : 'border-gray-300'
                   }`}
                   placeholder="Postal Code"
                 />
                 {errors.postalCode && (
-                  <p className="text-red-500 text-sm mt-1">{errors.postalCode}</p>
+                  <p className="text-gray-600 text-sm mt-1">{errors.postalCode}</p>
                 )}
               </div>
             </div>
@@ -257,12 +257,12 @@ const PersonalInfoForm = ({ onNext, onBack }: PersonalInfoFormProps) => {
                 value={formData.address.country}
                 onChange={(e) => handleInputChange('address.country', e.target.value)}
                 className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
-                  errors.country ? 'border-red-500' : 'border-gray-300'
+                  errors.country ? 'border-gray-400' : 'border-gray-300'
                 }`}
                 placeholder="Country"
               />
               {errors.country && (
-                <p className="text-red-500 text-sm mt-1">{errors.country}</p>
+                <p className="text-gray-600 text-sm mt-1">{errors.country}</p>
               )}
             </div>
           </div>
@@ -277,12 +277,12 @@ const PersonalInfoForm = ({ onNext, onBack }: PersonalInfoFormProps) => {
               value={formData.phoneNumber}
               onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
               className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
-                errors.phoneNumber ? 'border-red-500' : 'border-gray-300'
+                errors.phoneNumber ? 'border-gray-400' : 'border-gray-300'
               }`}
               placeholder="+966 50 123 4567"
             />
             {errors.phoneNumber && (
-              <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>
+              <p className="text-gray-600 text-sm mt-1">{errors.phoneNumber}</p>
             )}
           </div>
 
