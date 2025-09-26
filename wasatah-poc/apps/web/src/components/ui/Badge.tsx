@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-type BadgeVariant = 'primary' | 'success' | 'warning' | 'danger' | 'secondary';
+type BadgeVariant = 'primary' | 'success' | 'warning' | 'neutral' | 'secondary';
 type BadgeSize = 'sm' | 'md' | 'lg';
 
 interface BadgeProps {
@@ -15,7 +15,7 @@ const Badge = ({ children, variant = 'secondary', size = 'md', className = '' }:
     primary: 'badge-primary',
     success: 'badge-success',
     warning: 'badge-warning',
-    danger: 'badge-danger',
+    neutral: 'badge-neutral',
     secondary: 'badge-secondary',
   };
 

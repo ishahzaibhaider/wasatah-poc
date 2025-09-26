@@ -344,7 +344,7 @@ const BuyerPage = () => {
                       variant={
                         offer.status === 'locked' ? 'primary' :
                         offer.status === 'pending' ? 'warning' : 
-                        offer.status === 'accepted' ? 'success' : 'danger'
+                        offer.status === 'accepted' ? 'success' : 'neutral'
                       }
                     >
                       {offer.status === 'locked' ? '🔒 Offer Locked' :

@@ -17,7 +17,7 @@ const KYCPage = () => {
       case 'verified': return 'success';
       case 'pending_review': return 'warning';
       case 'in_progress': return 'primary';
-      case 'rejected': return 'danger';
+      case 'rejected': return 'neutral';
       default: return 'secondary';
     }
   };

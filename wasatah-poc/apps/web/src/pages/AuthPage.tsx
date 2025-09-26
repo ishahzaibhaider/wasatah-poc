@@ -242,13 +242,13 @@ const AuthPage = () => {
 
         {/* Error Display */}
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-md p-4">
+          <div className="bg-neutral-50 border border-neutral-200 rounded-md p-4">
             <div className="flex">
               <div className="flex-shrink-0">
-                <span className="text-red-400">⚠️</span>
+                <span className="text-neutral-500">⚠️</span>
               </div>
               <div className="ml-3">
-                <p className="text-sm text-red-800">{error}</p>
+                <p className="text-sm text-neutral-700">{error}</p>
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-type BannerVariant = 'info' | 'success' | 'warning' | 'danger';
+type BannerVariant = 'info' | 'success' | 'warning' | 'neutral';
 
 interface BannerProps {
   children: ReactNode;
@@ -14,7 +14,7 @@ const Banner = ({ children, variant = 'info', className = '', onClose }: BannerP
     info: 'banner-info',
     success: 'banner-success',
     warning: 'banner-warning',
-    danger: 'banner-danger',
+    neutral: 'banner-neutral',
   };
 
   return (

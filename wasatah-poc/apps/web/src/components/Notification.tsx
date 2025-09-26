@@ -26,7 +26,7 @@ const Notification = ({ message, type, isVisible, onClose, duration = 3000 }: No
       case 'success':
         return 'bg-green-500 text-white';
       case 'error':
-        return 'bg-red-500 text-white';
+        return 'bg-neutral-600 text-white';
       case 'info':
         return 'bg-blue-500 text-white';
       default:

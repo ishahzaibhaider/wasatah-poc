@@ -33,17 +33,17 @@ const VerificationBadge = ({ kycStatus, size = 'md', showText = true }: Verifica
         };
       case 'rejected':
         return {
-          variant: 'danger' as const,
+          variant: 'neutral' as const,
           icon: '❌',
           text: 'Rejected',
-          className: 'bg-red-100 text-red-800 border-red-200'
+          className: 'bg-gray-100 text-gray-800 border-gray-200'
         };
       case 'expired':
         return {
-          variant: 'danger' as const,
+          variant: 'neutral' as const,
           icon: '⏰',
           text: 'Expired',
-          className: 'bg-orange-100 text-orange-800 border-orange-200'
+          className: 'bg-gray-100 text-gray-800 border-gray-200'
         };
       default:
         return {

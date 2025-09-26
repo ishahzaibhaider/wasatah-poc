@@ -406,7 +406,7 @@ const SellerPage = () => {
                     
                     <div className="flex items-center justify-between">
                       <Badge 
-                        variant={offer.status === 'pending' ? 'warning' : offer.status === 'accepted' ? 'success' : 'danger'}
+                        variant={offer.status === 'pending' ? 'warning' : offer.status === 'accepted' ? 'success' : 'neutral'}
                       >
                         {offer.status === 'pending' ? '⏳ Pending' : 
                          offer.status === 'accepted' ? '✅ Accepted' : '❌ Declined'}

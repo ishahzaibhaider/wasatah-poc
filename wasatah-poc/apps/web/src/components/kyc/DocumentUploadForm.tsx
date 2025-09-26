@@ -136,7 +136,7 @@ const DocumentUploadForm = ({ onNext, onBack }: DocumentUploadFormProps) => {
                   {docStatus && (
                     <Badge 
                       variant={docStatus.status === 'verified' ? 'success' : 
-                              docStatus.status === 'rejected' ? 'danger' : 'secondary'}
+                              docStatus.status === 'rejected' ? 'neutral' : 'secondary'}
                     >
                       {docStatus.text}
                     </Badge>

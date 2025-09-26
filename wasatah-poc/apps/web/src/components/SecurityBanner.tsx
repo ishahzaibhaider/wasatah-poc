@@ -42,7 +42,7 @@ const SecurityBanner = () => {
   const criticalFlags = getCriticalRiskFlags();
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-red-600 text-white shadow-lg">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-neutral-700 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -68,7 +68,7 @@ const SecurityBanner = () => {
                   handleCreateEvent(flag);
                 });
               }}
-              className="px-3 py-1 bg-red-700 hover:bg-red-800 rounded text-xs font-medium transition-colors"
+              className="px-3 py-1 bg-neutral-600 hover:bg-neutral-500 rounded text-xs font-medium transition-colors"
             >
               Log Event
             </button>
@@ -76,7 +76,7 @@ const SecurityBanner = () => {
               onClick={() => {
                 criticalFlags.forEach(flag => handleDismiss(flag.id));
               }}
-              className="px-3 py-1 bg-red-700 hover:bg-red-800 rounded text-xs font-medium transition-colors"
+              className="px-3 py-1 bg-neutral-600 hover:bg-neutral-500 rounded text-xs font-medium transition-colors"
             >
               Dismiss All
             </button>
@@ -86,7 +86,7 @@ const SecurityBanner = () => {
         {/* Risk Flag Details */}
         <div className="mt-3 space-y-2">
           {criticalFlags.map((flag) => (
-            <div key={flag.id} className="bg-red-700 rounded p-2 text-xs">
+            <div key={flag.id} className="bg-neutral-600 rounded p-2 text-xs">
               <div className="flex items-center justify-between">
                 <div>
                   <span className="font-medium">
@@ -96,13 +96,13 @@ const SecurityBanner = () => {
                 </div>
                 <button
                   onClick={() => handleDismiss(flag.id)}
-                  className="text-red-200 hover:text-white transition-colors"
+                  className="text-neutral-200 hover:text-white transition-colors"
                 >
                   ✕
                 </button>
               </div>
               {flag.metadata && (
-                <div className="mt-1 text-red-200">
+                <div className="mt-1 text-neutral-200">
                   <span className="font-medium">Confidence:</span> {Math.round((Number(flag.metadata.confidence) || 0) * 100)}%
                   {typeof flag.metadata.rule === 'string' && (
                     <span className="ml-2">
