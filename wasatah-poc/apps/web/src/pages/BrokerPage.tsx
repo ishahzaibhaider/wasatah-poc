@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { useLedgerStore } from '../stores/useLedgerStore';
 import { useSecurityStore } from '../stores/useSecurityStore';
+import { useAuthStore } from '../stores/useAuthStore';
+import { useFaceVerification } from '../hooks/useFaceVerification';
+import FaceVerification from '../components/kyc/FaceVerification';
 import { createPseudoSignature } from '../utils/crypto';
 import { isReadonlyMode } from '../utils/api';
 import Notification from '../components/Notification';
 import { Card, CardBody } from '../components/ui/Card';
+import Badge from '../components/ui/Badge';
 
 const BrokerPage = () => {
   const [showLinkModal, setShowLinkModal] = useState(false);
@@ -24,6 +28,15 @@ const BrokerPage = () => {
 
   const { addEvent } = useLedgerStore();
   const { evaluateImpersonation } = useSecurityStore();
+  const { user } = useAuthStore();
+  const {
+    showVerification,
+    startVerification,
+    onVerificationSuccess,
+    onVerificationCancel,
+    resetVerification,
+    isUserVerified,
+  } = useFaceVerification();
 
   interface MockUser {
     id: string;
@@ -60,6 +73,21 @@ const BrokerPage = () => {
       return;
     }
 
+    // Check if user needs face verification
+    if (!isUserVerified) {
+      setNotification({
+        message: 'Please complete KYC verification before linking buyers and sellers.',
+        type: 'error',
+        isVisible: true
+      });
+      return;
+    }
+
+    // Start face verification
+    startVerification();
+  };
+
+  const executeLinkBuyerSeller = async () => {
     setIsLinking(true);
     
     try {
@@ -97,6 +125,12 @@ const BrokerPage = () => {
     } finally {
       setIsLinking(false);
     }
+  };
+
+  const handleLinkVerificationSuccess = () => {
+    onVerificationSuccess();
+    executeLinkBuyerSeller();
+    resetVerification();
   };
 
   const handleTestImpersonation = async () => {
@@ -137,6 +171,30 @@ const BrokerPage = () => {
   };
 
   const handleCompleteTransaction = async (connectionId: string, buyerId: string, sellerId: string, propertyId: string, amount: number) => {
+    // Check if user needs face verification
+    if (!isUserVerified) {
+      setNotification({
+        message: 'Please complete KYC verification before completing transactions.',
+        type: 'error',
+        isVisible: true
+      });
+      return;
+    }
+
+    // Store transaction details for after verification
+    setPendingBrokerTransaction({ connectionId, buyerId, sellerId, propertyId, amount });
+    startVerification();
+  };
+
+  const [pendingBrokerTransaction, setPendingBrokerTransaction] = useState<{
+    connectionId: string;
+    buyerId: string;
+    sellerId: string;
+    propertyId: string;
+    amount: number;
+  } | null>(null);
+
+  const executeBrokerTransaction = async (connectionId: string, buyerId: string, sellerId: string, propertyId: string, amount: number) => {
     try {
       const transactionPayload = {
         connectionId,
@@ -172,6 +230,21 @@ const BrokerPage = () => {
     }
   };
 
+  const handleTransactionVerificationSuccess = () => {
+    onVerificationSuccess();
+    if (pendingBrokerTransaction) {
+      executeBrokerTransaction(
+        pendingBrokerTransaction.connectionId,
+        pendingBrokerTransaction.buyerId,
+        pendingBrokerTransaction.sellerId,
+        pendingBrokerTransaction.propertyId,
+        pendingBrokerTransaction.amount
+      );
+      setPendingBrokerTransaction(null);
+    }
+    resetVerification();
+  };
+
   return (
     <div className="max-w-7xl mx-auto">
       {/* Header Section */}
@@ -181,6 +254,17 @@ const BrokerPage = () => {
           <p className="text-lg text-secondary-600 max-w-2xl mx-auto leading-relaxed">
             Connect buyers and sellers in the Wasatah network with AI-powered security
           </p>
+          <div className="flex justify-center mt-4">
+            {isUserVerified ? (
+              <Badge variant="success" className="text-sm">
+                🏆 Verified User
+              </Badge>
+            ) : (
+              <Badge variant="warning" className="text-sm">
+                ⚠️ KYC Required
+              </Badge>
+            )}
+          </div>
         </div>
         
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -526,6 +610,24 @@ const BrokerPage = () => {
             </div>
             </CardBody>
           </Card>
+        </div>
+      )}
+
+      {/* Face Verification Modal */}
+      {showVerification && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="w-full max-w-4xl">
+            <FaceVerification
+              onSuccess={pendingBrokerTransaction ? handleTransactionVerificationSuccess : handleLinkVerificationSuccess}
+              onCancel={onVerificationCancel}
+              title="Face Verification Required"
+              description={pendingBrokerTransaction 
+                ? "Please verify your identity to complete this transaction"
+                : "Please verify your identity to link buyer and seller"
+              }
+              isQuickCheck={true}
+            />
+          </div>
         </div>
       )}
 

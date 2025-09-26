@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useOfferStore } from '../stores/useOfferStore';
 import { useLedgerStore } from '../stores/useLedgerStore';
 import { useAuthStore } from '../stores/useAuthStore';
+import { useFaceVerification } from '../hooks/useFaceVerification';
+import FaceVerification from '../components/kyc/FaceVerification';
 import { getStoredProperties, getStoredOffersByProperty, saveStoredOffer } from '../utils/browserStorage';
 import VerificationBadge from '../components/VerificationBadge';
 import Notification from '../components/Notification';
@@ -30,6 +32,14 @@ const SellerPage = () => {
 
   const { addEvent } = useLedgerStore();
   const { user } = useAuthStore();
+  const {
+    showVerification,
+    startVerification,
+    onVerificationSuccess,
+    onVerificationCancel,
+    resetVerification,
+    isUserVerified,
+  } = useFaceVerification();
   
   // Get the featured property from browser storage
   const properties = getStoredProperties();
@@ -76,6 +86,24 @@ const SellerPage = () => {
   const ownershipHistory = property.ownershipHistory;
 
   const handleOfferAction = async (offerId: string, action: 'accept' | 'decline') => {
+    // Check if user needs face verification
+    if (!isUserVerified) {
+      setNotification({
+        message: 'Please complete KYC verification before managing offers.',
+        type: 'error',
+        isVisible: true
+      });
+      return;
+    }
+    
+    // Store the action for after verification
+    setPendingAction({ offerId, action });
+    startVerification();
+  };
+
+  const [pendingAction, setPendingAction] = useState<{ offerId: string; action: 'accept' | 'decline' } | null>(null);
+
+  const executeOfferAction = async (offerId: string, action: 'accept' | 'decline') => {
     try {
       const status = action === 'accept' ? 'accepted' : 'rejected';
       await updateOfferStatus(offerId, status);
@@ -110,11 +138,38 @@ const SellerPage = () => {
     }
   };
 
+  const handleVerificationSuccess = () => {
+    onVerificationSuccess();
+    if (pendingAction) {
+      executeOfferAction(pendingAction.offerId, pendingAction.action);
+      setPendingAction(null);
+    }
+    resetVerification();
+  };
+
   const handleEditProperty = () => {
     setIsEditing(true);
   };
 
   const handleCompleteTransaction = async (offerId: string, buyerId: string, amount: number) => {
+    // Check if user needs face verification
+    if (!isUserVerified) {
+      setNotification({
+        message: 'Please complete KYC verification before completing transactions.',
+        type: 'error',
+        isVisible: true
+      });
+      return;
+    }
+    
+    // Store the transaction details for after verification
+    setPendingTransaction({ offerId, buyerId, amount });
+    startVerification();
+  };
+
+  const [pendingTransaction, setPendingTransaction] = useState<{ offerId: string; buyerId: string; amount: number } | null>(null);
+
+  const executeTransaction = async (offerId: string, buyerId: string, amount: number) => {
     try {
       const transactionPayload = {
         offerId,
@@ -149,6 +204,15 @@ const SellerPage = () => {
     }
   };
 
+  const handleTransactionVerificationSuccess = () => {
+    onVerificationSuccess();
+    if (pendingTransaction) {
+      executeTransaction(pendingTransaction.offerId, pendingTransaction.buyerId, pendingTransaction.amount);
+      setPendingTransaction(null);
+    }
+    resetVerification();
+  };
+
   return (
     <div className="max-w-7xl mx-auto">
       {/* Header */}
@@ -159,6 +223,15 @@ const SellerPage = () => {
             <p className="text-gray-600">Manage your property listings and track offers</p>
           </div>
           <div className="flex items-center space-x-4">
+            {isUserVerified ? (
+              <Badge variant="success" className="text-sm">
+                🏆 Verified User
+              </Badge>
+            ) : (
+              <Badge variant="warning" className="text-sm">
+                ⚠️ KYC Required
+              </Badge>
+            )}
             <Badge variant="success" className="text-sm">
               ✅ Deed Verified
             </Badge>
@@ -387,6 +460,24 @@ const SellerPage = () => {
             >
               Close
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Face Verification Modal */}
+      {showVerification && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="w-full max-w-4xl">
+            <FaceVerification
+              onSuccess={pendingAction ? handleVerificationSuccess : handleTransactionVerificationSuccess}
+              onCancel={onVerificationCancel}
+              title="Face Verification Required"
+              description={pendingAction 
+                ? `Please verify your identity to ${pendingAction.action} this offer`
+                : "Please verify your identity to complete this transaction"
+              }
+              isQuickCheck={true}
+            />
           </div>
         </div>
       )}

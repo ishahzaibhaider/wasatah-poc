@@ -4,6 +4,8 @@ import Badge from '../components/ui/Badge';
 import { useOfferStore } from '../stores/useOfferStore';
 import { useLedgerStore } from '../stores/useLedgerStore';
 import { useAuthStore } from '../stores/useAuthStore';
+import { useFaceVerification } from '../hooks/useFaceVerification';
+import FaceVerification from '../components/kyc/FaceVerification';
 import Notification from '../components/Notification';
 
 const BuyerPage = () => {
@@ -28,6 +30,14 @@ const BuyerPage = () => {
 
   const { addEvent } = useLedgerStore();
   const { user } = useAuthStore();
+  const {
+    showVerification,
+    startVerification,
+    onVerificationSuccess,
+    onVerificationCancel,
+    resetVerification,
+    isUserVerified,
+  } = useFaceVerification();
 
   const property = {
     id: 'prop_001',
@@ -59,6 +69,22 @@ const BuyerPage = () => {
 
   const handleMakeOffer = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Check if user needs face verification
+    if (!isUserVerified) {
+      setNotification({
+        message: 'Please complete KYC verification before making offers.',
+        type: 'error',
+        isVisible: true
+      });
+      return;
+    }
+    
+    // Start face verification for verified users
+    startVerification();
+  };
+
+  const submitOfferAfterVerification = async () => {
     setIsSubmitting(true);
     
     try {
@@ -100,7 +126,13 @@ const BuyerPage = () => {
       });
     } finally {
       setIsSubmitting(false);
+      resetVerification();
     }
+  };
+
+  const handleVerificationSuccess = () => {
+    onVerificationSuccess();
+    submitOfferAfterVerification();
   };
 
   const formatCurrency = (amount: number) => {
@@ -115,8 +147,23 @@ const BuyerPage = () => {
     <div className="max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Buyer Dashboard</h1>
-        <p className="text-gray-600">Browse verified properties and make offers</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Buyer Dashboard</h1>
+            <p className="text-gray-600">Browse verified properties and make offers</p>
+          </div>
+          <div className="flex items-center gap-3">
+            {isUserVerified ? (
+              <Badge variant="success" className="text-sm">
+                🏆 Verified User
+              </Badge>
+            ) : (
+              <Badge variant="warning" className="text-sm">
+                ⚠️ KYC Required
+              </Badge>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
@@ -322,6 +369,21 @@ const BuyerPage = () => {
           )}
         </CardBody>
       </Card>
+
+      {/* Face Verification Modal */}
+      {showVerification && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="w-full max-w-4xl">
+            <FaceVerification
+              onSuccess={handleVerificationSuccess}
+              onCancel={onVerificationCancel}
+              title="Face Verification Required"
+              description="Please verify your identity before submitting the offer"
+              isQuickCheck={true}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Notification */}
       <Notification

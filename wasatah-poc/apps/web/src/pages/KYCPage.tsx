@@ -35,6 +35,12 @@ const KYCPage = () => {
     return null;
   }
 
+  // If user is already verified, redirect to role page
+  if (user?.kycStatus === 'verified') {
+    navigate('/role');
+    return null;
+  }
+
   // If KYC is already in progress or completed, show the flow
   if (kycData) {
     return <KYCFlow onComplete={handleKYCComplete} onCancel={handleKYCCancel} />;
@@ -153,19 +159,40 @@ const KYCPage = () => {
                       <p className="text-gray-600 text-sm">Role: {user?.role}</p>
                     </div>
                     <div className="text-right">
-                      <Badge variant="secondary">Not Verified</Badge>
+                      <Badge 
+                        variant={
+                          user?.kycStatus === 'verified' ? 'success' :
+                          user?.kycStatus === 'pending_review' ? 'warning' :
+                          user?.kycStatus === 'in_progress' ? 'primary' :
+                          user?.kycStatus === 'rejected' ? 'danger' : 'secondary'
+                        }
+                      >
+                        {user?.kycStatus === 'verified' ? '✅ Verified' :
+                         user?.kycStatus === 'pending_review' ? '⏳ Under Review' :
+                         user?.kycStatus === 'in_progress' ? '🔄 In Progress' :
+                         user?.kycStatus === 'rejected' ? '❌ Rejected' : '🔒 Not Verified'}
+                      </Badge>
                     </div>
                   </div>
                 </div>
 
                 {/* Action Buttons */}
                 <div className="flex justify-center space-x-4 pt-6">
-                  <Button
-                    onClick={handleStartKYC}
-                    className="px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white"
-                  >
-                    Start Verification Process
-                  </Button>
+                  {user?.kycStatus === 'rejected' ? (
+                    <Button
+                      onClick={handleStartKYC}
+                      className="px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white"
+                    >
+                      Retry Verification Process
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleStartKYC}
+                      className="px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white"
+                    >
+                      Start Verification Process
+                    </Button>
+                  )}
                   <Button
                     onClick={() => navigate('/role')}
                     variant="outline"

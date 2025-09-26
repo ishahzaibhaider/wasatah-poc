@@ -65,7 +65,7 @@ export const useAuthStore = create<AuthState>()(
                 zkpProof: 'zkp_proof_' + Date.now(),
                 riskScore: Math.floor(Math.random() * 20) + 5,
               },
-              kycStatus: 'not_started' as KYCStatus
+              kycStatus: (storedUser.kycStatus as KYCStatus) || 'not_started'
             };
             
             setCurrentUser(storedUser);
@@ -117,7 +117,7 @@ export const useAuthStore = create<AuthState>()(
                 zkpProof: 'zkp_proof_' + Date.now(),
                 riskScore: Math.floor(Math.random() * 20) + 5,
               },
-              kycStatus: 'not_started' as KYCStatus
+              kycStatus: (newStoredUser.kycStatus as KYCStatus) || 'not_started'
             };
             
             // Add login event to ledger
@@ -178,7 +178,8 @@ export const useAuthStore = create<AuthState>()(
               expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
               zkpProof: 'zkp_proof_' + Date.now(),
               riskScore: Math.floor(Math.random() * 20) + 5,
-            }
+            },
+            kycStatus: 'not_started' as KYCStatus
           };
           
           // Add registration event to ledger
@@ -275,8 +276,17 @@ export const useAuthStore = create<AuthState>()(
       updateKYCStatus: (status: KYCStatus) => {
         const currentUser = get().user;
         if (currentUser) {
+          const updatedUser = { ...currentUser, kycStatus: status };
+          
+          // Update stored user data to persist KYC status
+          const storedUser = getStoredUserByEmail(currentUser.email);
+          if (storedUser) {
+            const updatedStoredUser = { ...storedUser, kycStatus: status };
+            saveStoredUser(updatedStoredUser);
+          }
+          
           set({
-            user: { ...currentUser, kycStatus: status },
+            user: updatedUser,
           });
         }
       },

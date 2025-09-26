@@ -9,6 +9,7 @@ export interface StoredUser {
   digitalId: string;
   createdAt: string;
   verified: boolean;
+  kycStatus?: 'not_started' | 'in_progress' | 'pending_review' | 'verified' | 'rejected' | 'expired';
 }
 
 export interface StoredOffer {
