@@ -85,6 +85,7 @@ export type EventType =
   | 'property_listed'
   | 'property_updated'
   | 'offer_made'
+  | 'escrow_locked'
   | 'offer_accepted'
   | 'offer_rejected'
   | 'transaction_completed'

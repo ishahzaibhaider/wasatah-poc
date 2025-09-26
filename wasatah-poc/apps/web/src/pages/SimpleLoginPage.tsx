@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Card, CardBody } from '../components/ui/Card';
 import { useAuthStore } from '../stores/useAuthStore';
 import { useLedgerStore } from '../stores/useLedgerStore';
+import { useSecurityStore } from '../stores/useSecurityStore';
 
 const SimpleLoginPage = () => {
   const location = useLocation();
@@ -22,6 +23,7 @@ const SimpleLoginPage = () => {
   const navigate = useNavigate();
   const { login, register } = useAuthStore();
   const { addEvent } = useLedgerStore();
+  const { checkImpersonationRisk } = useSecurityStore();
 
   // Update mode based on URL
   useEffect(() => {
@@ -50,6 +52,8 @@ const SimpleLoginPage = () => {
               email: currentUser.email,
               role: currentUser.role
             });
+            // Trigger identity impersonation check after successful login
+            await checkImpersonationRisk(currentUser);
           }
         } catch (error) {
           console.warn('Failed to add login event to ledger:', error);
