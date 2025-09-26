@@ -20,7 +20,6 @@ const ExplorerPage = () => {
     'property_listed',
     'property_updated',
     'offer_made',
-    'escrow_locked',
     'offer_accepted',
     'offer_rejected',
     'transaction_completed',
@@ -47,7 +46,6 @@ const ExplorerPage = () => {
       case 'property_updated':
         return 'bg-blue-100 text-blue-800';
       case 'offer_made':
-      case 'escrow_locked':
       case 'offer_accepted':
       case 'offer_rejected':
         return 'bg-yellow-100 text-yellow-800';

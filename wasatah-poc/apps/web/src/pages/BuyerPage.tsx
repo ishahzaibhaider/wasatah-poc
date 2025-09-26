@@ -5,7 +5,6 @@ import { useOfferStore } from '../stores/useOfferStore';
 import { useLedgerStore } from '../stores/useLedgerStore';
 import { useAuthStore } from '../stores/useAuthStore';
 import { useFaceVerification } from '../hooks/useFaceVerification';
-import { useSecurityStore } from '../stores/useSecurityStore';
 import FaceVerification from '../components/kyc/FaceVerification';
 import Notification from '../components/Notification';
 
@@ -31,7 +30,6 @@ const BuyerPage = () => {
 
   const { addEvent } = useLedgerStore();
   const { user } = useAuthStore();
-  const { checkImpersonationRisk } = useSecurityStore();
   const {
     showVerification,
     startVerification,
@@ -72,11 +70,6 @@ const BuyerPage = () => {
   const handleMakeOffer = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Run identity risk check before checkout/offer submission
-    if (user) {
-      try { await checkImpersonationRisk(user); } catch {}
-    }
-
     // Check if user needs face verification
     if (!isUserVerified) {
       setNotification({
@@ -104,23 +97,14 @@ const BuyerPage = () => {
       
       const newOffer = await createOffer(offerData);
       
-      // Add ledger event for offer_made
+      // Add ledger event for offer_made (keep status as pending for seller review)
       await addEvent('offer_made', user?.id || 'current_user', user?.name || 'Current User', {
         offerId: newOffer.id,
         propertyId: property.id,
         amount: parseInt(offerAmount),
         message: offerMessage,
-        status: 'locked',
+        status: 'pending',
         submittedAt: newOffer.submittedAt
-      });
-
-      // Add escrow_locked event for clarity in explorer
-      await addEvent('escrow_locked', user?.id || 'current_user', user?.name || 'Current User', {
-        offerId: newOffer.id,
-        propertyId: property.id,
-        amount: parseInt(offerAmount),
-        status: 'locked',
-        note: 'Funds Locked (simulated escrow)'
       });
       
       // Reset form
@@ -129,7 +113,7 @@ const BuyerPage = () => {
       
       // Show success message
       setNotification({
-        message: 'Offer submitted successfully! 🔒 Funds Locked (Simulated Escrow).',
+        message: 'Offer submitted successfully! Waiting for seller response. ⏳',
         type: 'success',
         isVisible: true
       });
@@ -272,15 +256,6 @@ const BuyerPage = () => {
           <Card className="sticky top-24">
             <CardBody className="p-6">
               <h2 className="text-xl font-semibold mb-6">Make an Offer</h2>
-              {/* Escrow Visual */}
-              {myOffers.some(o => o.status === 'locked') && (
-                <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg flex items-center justify-between">
-                  <div className="text-sm text-yellow-800 font-medium">
-                    🔒 Funds Locked (Simulated Escrow)
-                  </div>
-                  <span className="badge badge-warning text-xs">escrow_locked</span>
-                </div>
-              )}
               
               <form onSubmit={handleMakeOffer} className="space-y-4">
                 <div>

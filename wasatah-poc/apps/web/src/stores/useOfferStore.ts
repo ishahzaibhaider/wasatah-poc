@@ -116,7 +116,7 @@ export const useOfferStore = create<OfferState>((set, get) => ({
         buyerId: currentUser?.id || 'current_user',
         buyerName: currentUser?.name || 'Current User',
         amount: offerData.amount,
-        status: 'locked',
+        status: 'pending',
         createdAt: new Date().toISOString(),
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days
       };
