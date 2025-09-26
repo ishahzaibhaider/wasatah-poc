@@ -85,9 +85,9 @@ const FaceVerification = ({
       setProgress(((i + 1) / steps.length) * 100);
     }
 
-    // Simulate success/failure with different rates based on verification type
-    const successRate = isQuickCheck ? 0.95 : 0.8; // 95% for quick checks, 80% for full KYC
-    const success = Math.random() > (1 - successRate);
+    // DEMO MODE: 100% success rate for demonstration purposes
+    // In production, this would be: const success = Math.random() > (1 - successRate);
+    const success = true; // Always succeed in demo
     
     const newAttempts = attempts + 1;
     setAttempts(newAttempts);

@@ -77,9 +77,10 @@ const FaceLivenessCheck = ({ onNext, onBack }: FaceLivenessCheckProps) => {
       setProgress(((i + 1) / steps.length) * 100);
     }
 
-    // Simulate success/failure (80% success rate)
-    const success = Math.random() > 0.2;
-    const confidence = success ? Math.floor(Math.random() * 20) + 80 : Math.floor(Math.random() * 40) + 30;
+    // DEMO MODE: 100% success rate for demonstration purposes
+    // In production, this would be: const success = Math.random() > 0.2; // 80% success rate
+    const success = true; // Always succeed in demo
+    const confidence = 95; // High confidence for demo
     
     const newAttempts = attempts + 1;
     setAttempts(newAttempts);

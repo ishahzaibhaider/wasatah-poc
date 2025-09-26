@@ -101,8 +101,10 @@ export const useKYCStore = create<KYCState>()(
 
           // Simulate processing delay
           setTimeout(() => {
-            const success = Math.random() > 0.2; // 80% success rate for demo
-            const riskScore = Math.floor(Math.random() * 30) + 10; // 10-40 risk score
+            // DEMO MODE: 100% success rate for demonstration purposes
+            // In production, this would be: const success = Math.random() > 0.2; // 80% success rate
+            const success = true; // Always succeed in demo
+            const riskScore = 5; // Low risk score for demo
             const finalStatus: KYCStatus = success ? 'verified' : 'rejected';
             
             const updatedKYCData = {
