@@ -28,6 +28,7 @@ export const useKYCStore = create<KYCState>()(
       error: null,
 
       startKYC: (userId: string) => {
+        console.log('KYC Store: Starting KYC for user:', userId);
         const kycData: KYCData = {
           id: `kyc_${Date.now()}`,
           userId,
@@ -36,6 +37,7 @@ export const useKYCStore = create<KYCState>()(
           riskScore: 0,
           verificationMethod: 'hybrid',
         };
+        console.log('KYC Store: Created KYC data:', kycData);
         set({ kycData, error: null });
       },
 

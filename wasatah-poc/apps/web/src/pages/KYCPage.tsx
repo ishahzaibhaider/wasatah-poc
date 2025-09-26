@@ -50,7 +50,14 @@ const KYCPage = () => {
   };
 
   const handleStartKYC = () => {
-    // KYC will be started automatically in KYCFlow component
+    // Start the KYC process by initializing KYC data
+    if (user?.id) {
+      console.log('Starting KYC for user:', user.id);
+      const { startKYC } = useKYCStore.getState();
+      startKYC(user.id);
+    } else {
+      console.error('No user ID available for KYC');
+    }
   };
 
   if (!isAuthenticated) {
